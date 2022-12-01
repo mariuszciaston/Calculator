@@ -1,7 +1,7 @@
 // OPERATORS
 
-let a = 10;
-let b = 2;
+let a = '';
+let b = '';
 
 function add(a, b) {
     return a + b;
@@ -19,54 +19,62 @@ function divide(a, b) {
     return a / b;
 };
 
-console.log(add(a, b));
-console.log(subtract(a, b));
-console.log(multiply(a, b));
-console.log(divide(a, b));
-
-
-
 // OPERATE
 
 let firstNumber = a;
 let secondNumber = b;
-let operator;
+let selectedOperator;
 
-function operate(firstNumber, operator, secondNumber) {
-    if (operator === 'add') {
-        add(firstNumber, secondNumber);
+const operators = document.querySelectorAll('.operator');
+
+operators.forEach((operator) => {
+    operator.addEventListener('click', (e) => {
+        selectedOperator = e.target.innerHTML;
+        console.log(selectedOperator);
+        displayValue += selectedOperator;   
+        display.innerHTML = displayValue; 
+        return selectedOperator;
+    });
+});
+
+function operate(selectedOperator, firstNumber, secondNumber) {
+    if (selectedOperator === '+') {
+        return add(firstNumber, secondNumber);
     }
 
-    if (operator === 'subtract') {
-        subtract(firstNumber, secondNumber);
+    if (selectedOperator === '-') {
+        return subtract(firstNumber, secondNumber);
     }
 
-    if (operator === 'multiply') {
-        multiply(firstNumber, secondNumber);
+    if (selectedOperator === 'x') {
+        return multiply(firstNumber, secondNumber);
     }
 
-    if (operator === 'divide') {
-        divide(firstNumber, secondNumber);
+    if (selectedOperator === '÷') {
+        return divide(firstNumber, secondNumber);
     }
 };
 
-
 // DISPLAY
+
+let selectedNumber;
+let displayValue = '';
 const numbers = document.querySelectorAll('.num');
-const display = document.querySelectorAll('.display');
+const display = document.querySelector('.display');
+
 
 numbers.forEach((number) => {
     number.addEventListener('click', (e) => {
 
-        let value = e.target.innerHTML;
-        console.log(value);
+        selectedNumber = e.target.innerHTML;
+        console.log(selectedNumber);
+        displayValue += selectedNumber;
 
-        display.innerHTML = value;
+        display.innerHTML = displayValue;
 
-        //  let displayValue = value;
+        console.log(displayValue);
 
-
-
+        firstNumber += selectedNumber;
+        return selectedNumber;
     });
-
 });
