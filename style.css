@@ -106,7 +106,7 @@ body {
     background-color: hsl(220, 100%, 80%);
 }
 
-.equal {
+.equals {
     background-color: hsl(120, 100%, 75%);
     grid-column: -1/-3;
     aspect-ratio: 0;

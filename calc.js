@@ -1,4 +1,4 @@
-// Operators
+// OPERATORS
 
 let a = 10;
 let b = 2;
@@ -26,7 +26,7 @@ console.log(divide(a, b));
 
 
 
-// Operate
+// OPERATE
 
 let firstNumber = a;
 let secondNumber = b;
@@ -49,3 +49,24 @@ function operate(firstNumber, operator, secondNumber) {
         divide(firstNumber, secondNumber);
     }
 };
+
+
+// DISPLAY
+const numbers = document.querySelectorAll('.num');
+const display = document.querySelectorAll('.display');
+
+numbers.forEach((number) => {
+    number.addEventListener('click', (e) => {
+
+        let value = e.target.innerHTML;
+        console.log(value);
+
+        display.innerHTML = value;
+
+        //  let displayValue = value;
+
+
+
+    });
+
+});
