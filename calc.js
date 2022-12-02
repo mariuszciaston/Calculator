@@ -24,6 +24,7 @@ function divide(a, b) {
 let firstNumber = a;
 let secondNumber = b;
 let selectedOperator;
+// let storedNumber = '';
 
 const operators = document.querySelectorAll('.operator');
 
@@ -31,8 +32,11 @@ operators.forEach((operator) => {
     operator.addEventListener('click', (e) => {
         selectedOperator = e.target.innerHTML;
         console.log(selectedOperator);
-        displayValue += selectedOperator;   
-        display.innerHTML = displayValue; 
+        displayValue += selectedOperator;
+
+        // firstNumber = storedNumber;
+        
+        display.innerHTML = displayValue;
         return selectedOperator;
     });
 });
@@ -55,26 +59,55 @@ function operate(selectedOperator, firstNumber, secondNumber) {
     }
 };
 
-// DISPLAY
+
+// NUMBERS
 
 let selectedNumber;
-let displayValue = '';
 const numbers = document.querySelectorAll('.num');
-const display = document.querySelector('.display');
 
+let displayValue = 0;
+const display = document.querySelector('.display');
+display.innerHTML = displayValue;
+
+let clickCounter = 0;
 
 numbers.forEach((number) => {
     number.addEventListener('click', (e) => {
-
+        
         selectedNumber = e.target.innerHTML;
         console.log(selectedNumber);
-        displayValue += selectedNumber;
+        
+        clickCounter++;
+        if ((clickCounter < 2) || (displayValue == 0)) {
+            displayValue = selectedNumber;
+        } else {
+            displayValue += selectedNumber;
+        }
 
         display.innerHTML = displayValue;
-
-        console.log(displayValue);
-
+        
         firstNumber += selectedNumber;
         return selectedNumber;
     });
 });
+
+// CLEAR
+const clear = document.querySelector('.clear');
+
+clear.addEventListener('click', () => {
+    firstNumber = '';
+    secondNumber = '';
+    displayValue = 0;
+    clickCounter = 0;
+    console.log('clear');
+    display.innerHTML = displayValue;
+    return displayValue;
+});
+
+
+// const equals = document.querySelector('.equals');
+
+// equals.addEventListener('click', () => {
+//     operate(selectedOperator, firstNumber, secondNumber);
+//     console.log('operate!!!!!!!');
+// });
