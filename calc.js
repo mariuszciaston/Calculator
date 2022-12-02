@@ -23,8 +23,6 @@ function divide(a, b) {
     return a / b;
 };
 
-
-
 // NUMBERS
 
 let selectedNumber;
@@ -56,11 +54,7 @@ numbers.forEach((number) => {
     });
 });
 
-
-
-
 // OPERATE
-
 
 const operators = document.querySelectorAll('.operator');
 
@@ -95,16 +89,6 @@ function operate(selectedOperator, firstNumber, secondNumber) {
     }
 };
 
-
-
-
-
-
-
-
-
-
-
 // CLEAR
 const clear = document.querySelector('.clear');
 
@@ -118,6 +102,20 @@ clear.addEventListener('click', () => {
     return displayValue;
 });
 
+// BACKSPACE
+
+const backspace = document.querySelector('.backspace');
+
+backspace.addEventListener('click', () => {
+    displayValue = displayValue.toString();
+    displayValue = displayValue.slice(0, -1);
+    if (displayValue.length < 1){
+        displayValue = 0;
+    }
+    displayValue = parseInt(displayValue);
+    display.innerHTML = displayValue;
+    console.log('backspace');
+});
 
 // const equals = document.querySelector('.equals');
 
@@ -125,7 +123,6 @@ clear.addEventListener('click', () => {
 //     operate(selectedOperator, firstNumber, secondNumber);
 //     console.log('operate!!!!!!!');
 // });
-
 
 // BUTTON PRESS
 const buttons = document.querySelectorAll('.btn');
