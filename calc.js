@@ -1,25 +1,10 @@
-let firstNumber;
-let secondNumber;
-let selectedOperator;
-
-
-
-
-
-
-
-
-
-
-
-
-
-// DISPLAY
+// NUMBERS
 
 let selectedNumber = 0;
 const numbers = document.querySelectorAll('.num');
 
 let displayValue = 0;
+
 const display = document.querySelector('.display');
 display.textContent = displayValue;
 
@@ -27,8 +12,9 @@ let clickCounter = 0;
 
 numbers.forEach((number) => {
     number.addEventListener('click', (e) => {
-
-
+ 
+        if (displayValue.length == undefined || displayValue.length < 16) {
+            display.style.fontSize = '48px'
 
         selectedNumber = e.target.textContent;
         console.log(selectedNumber);
@@ -41,25 +27,21 @@ numbers.forEach((number) => {
         }
 
         display.textContent = displayValue;
-
-
-
-
-
-
-
+    }
 
     });
 });
 
-// OPERATE
+// OPERATORS
+
+let firstNumber = '';
+let selectedOperator = '';
+let secondNumber = '';
 
 const operators = document.querySelectorAll('.operator');
 
 operators.forEach((operator) => {
     operator.addEventListener('click', (e) => {
-
-
 
         selectedOperator = e.target.textContent;
         console.log(selectedOperator);
@@ -68,13 +50,29 @@ operators.forEach((operator) => {
 
         if (selectedOperator) {
             displayValue = '';
-
         }
-
-
 
     });
 });
+
+// EQUALS
+
+let result;
+const equals = document.querySelector('.equals');
+
+equals.addEventListener('click', () => {
+
+    secondNumber = Number(displayValue);
+
+    result = operate(firstNumber, selectedOperator, secondNumber);
+
+    console.log(result);
+
+    displayValue = result;
+    display.textContent = displayValue;
+});
+
+// OPERATE
 
 function add(firstNumber, secondNumber) {
     return firstNumber + secondNumber;
@@ -111,37 +109,6 @@ function operate(firstNumber, selectedOperator, secondNumber) {
     }
 };
 
-
-
-// EQUALS
-
-let result;
-const equals = document.querySelector('.equals');
-
-equals.addEventListener('click', () => {
-
-    secondNumber = Number(displayValue);
-
-    result = operate(firstNumber, selectedOperator, secondNumber);
-
-    console.log(result);
-
-    displayValue = result;
-    display.textContent = displayValue;
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
 // CLEAR
 
 const clear = document.querySelector('.clear');
@@ -167,13 +134,16 @@ backspace.addEventListener('click', () => {
     if (displayValue.length < 1) {
         displayValue = 0;
     }
-    displayValue = parseInt(displayValue);
     display.textContent = displayValue;
+    resizeFont();
+    // displayValue = parseInt(displayValue);
     console.log('backspace');
 });
 
-// BUTTON PRESS
+// BUTTON PRESS ANIMATION
+
 const buttons = document.querySelectorAll('.btn');
+
 
 buttons.forEach((button) => {
     button.addEventListener('mousedown', () => {
@@ -190,3 +160,29 @@ buttons.forEach((button) => {
         button.style.animation = "unpress 0.2s"
     });
 });
+
+// DECREASE FONT SIZE WHEN MORE THAN 12 DIGITS
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        resizeFont();
+    });
+});
+
+function resizeFont(){
+if (displayValue.length >= 13) {
+    display.style.fontSize = '45px';
+}
+if (displayValue.length >= 14) {
+    display.style.fontSize = '42px';
+}
+if (displayValue.length >= 15) {
+    display.style.fontSize = '39px';
+}
+if (displayValue.length >= 16) {
+    display.style.fontSize = '36px';
+}
+if (displayValue.length <= 12) {
+    display.style.fontSize = '48px';
+}
+}
