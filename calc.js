@@ -63,7 +63,7 @@ operators.forEach((operator) => {
 
         selectedOperator = e.target.textContent;
         console.log(selectedOperator);
-       
+
         firstNumber = Number(displayValue);
 
         if (selectedOperator) {
@@ -78,16 +78,28 @@ operators.forEach((operator) => {
 
 function add(firstNumber, secondNumber) {
     return firstNumber + secondNumber;
-    // return (+firstNumber) + (+secondNumber);
+};
+
+function substract(firstNumber, secondNumber) {
+    return firstNumber - secondNumber;
+};
+
+function multiply(firstNumber, secondNumber) {
+    return firstNumber * secondNumber;
+};
+
+function divide(firstNumber, secondNumber) {
+    return firstNumber / secondNumber;
 };
 
 function operate(firstNumber, selectedOperator, secondNumber) {
+
     if (selectedOperator === '+') {
- return add(firstNumber, secondNumber);
+        return add(firstNumber, secondNumber);
     }
 
     if (selectedOperator === '-') {
-        return subtract(firstNumber, secondNumber);
+        return substract(firstNumber, secondNumber);
     }
 
     if (selectedOperator === 'x') {
