@@ -1,43 +1,36 @@
-let a = '';
-let b = '';
-let firstNumber = a;
-let secondNumber = b;
+let firstNumber;
+let secondNumber;
 let selectedOperator;
-let storedNumber = '';
 
-// OPERATORS
 
-function add(a, b) {
-    return a + b;
-};
 
-function subtract(a, b) {
-    return a - b;
-};
 
-function multiply(a, b) {
-    return a * b;
-};
 
-function divide(a, b) {
-    return a / b;
-};
 
-// NUMBERS
 
-let selectedNumber;
+
+
+
+
+
+
+// DISPLAY
+
+let selectedNumber = 0;
 const numbers = document.querySelectorAll('.num');
 
 let displayValue = 0;
 const display = document.querySelector('.display');
-display.innerHTML = displayValue;
+display.textContent = displayValue;
 
 let clickCounter = 0;
 
 numbers.forEach((number) => {
     number.addEventListener('click', (e) => {
 
-        selectedNumber = e.target.innerHTML;
+
+
+        selectedNumber = e.target.textContent;
         console.log(selectedNumber);
 
         clickCounter++;
@@ -47,10 +40,15 @@ numbers.forEach((number) => {
             displayValue += selectedNumber;
         }
 
-        display.innerHTML = displayValue;
+        display.textContent = displayValue;
 
-        firstNumber += selectedNumber;
-        return selectedNumber;
+
+
+
+
+
+
+
     });
 });
 
@@ -60,20 +58,32 @@ const operators = document.querySelectorAll('.operator');
 
 operators.forEach((operator) => {
     operator.addEventListener('click', (e) => {
-        selectedOperator = e.target.innerHTML;
+
+
+
+        selectedOperator = e.target.textContent;
         console.log(selectedOperator);
-        displayValue += selectedOperator;
+       
+        firstNumber = Number(displayValue);
 
-        storedNumber = firstNumber;
+        if (selectedOperator) {
+            displayValue = '';
 
-        display.innerHTML = displayValue;
-        return selectedOperator;
+        }
+
+
+
     });
 });
 
-function operate(selectedOperator, firstNumber, secondNumber) {
+function add(firstNumber, secondNumber) {
+    return firstNumber + secondNumber;
+    // return (+firstNumber) + (+secondNumber);
+};
+
+function operate(firstNumber, selectedOperator, secondNumber) {
     if (selectedOperator === '+') {
-        return add(firstNumber, secondNumber);
+ return add(firstNumber, secondNumber);
     }
 
     if (selectedOperator === '-') {
@@ -89,17 +99,50 @@ function operate(selectedOperator, firstNumber, secondNumber) {
     }
 };
 
+
+
+// EQUALS
+
+let result;
+const equals = document.querySelector('.equals');
+
+equals.addEventListener('click', () => {
+
+    secondNumber = Number(displayValue);
+
+    result = operate(firstNumber, selectedOperator, secondNumber);
+
+    console.log(result);
+
+    displayValue = result;
+    display.textContent = displayValue;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 // CLEAR
+
 const clear = document.querySelector('.clear');
 
 clear.addEventListener('click', () => {
     firstNumber = '';
     secondNumber = '';
+    selectedNumber = 0;
     displayValue = 0;
     clickCounter = 0;
     console.log('clear');
-    display.innerHTML = displayValue;
-    return displayValue;
+    display.textContent = displayValue;
+    // return displayValue;
 });
 
 // BACKSPACE
@@ -109,20 +152,13 @@ const backspace = document.querySelector('.backspace');
 backspace.addEventListener('click', () => {
     displayValue = displayValue.toString();
     displayValue = displayValue.slice(0, -1);
-    if (displayValue.length < 1){
+    if (displayValue.length < 1) {
         displayValue = 0;
     }
     displayValue = parseInt(displayValue);
-    display.innerHTML = displayValue;
+    display.textContent = displayValue;
     console.log('backspace');
 });
-
-// const equals = document.querySelector('.equals');
-
-// equals.addEventListener('click', () => {
-//     operate(selectedOperator, firstNumber, secondNumber);
-//     console.log('operate!!!!!!!');
-// });
 
 // BUTTON PRESS
 const buttons = document.querySelectorAll('.btn');

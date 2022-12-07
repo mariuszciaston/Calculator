@@ -12,10 +12,10 @@ funkcje zapełniające wyświetlacz kiedy naciskane są klawisze
 
 zmienna przechowująca wartość wyświetlacza (displayValue)
 
--------------------------------------------
-
 5. Niech zacznie działać!
 przechowywać pierwszy numer który jest naciskany kiedy użytkownik naciska operator i również zapisać która operacia została wybrania i odpalić operate() kiedy użytkownik naciśnie "="
+
+-------------------------------------------
 
 6.
 Gotchas: watch out for and fix these bugs if they show up in your code:
