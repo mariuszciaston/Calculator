@@ -12,22 +12,20 @@ let clickCounter = 0;
 
 numbers.forEach((number) => {
     number.addEventListener('click', (e) => {
- 
+
         if (displayValue.length == undefined || displayValue.length < 16) {
-            display.style.fontSize = '48px'
+            selectedNumber = e.target.textContent;
+            console.log(selectedNumber);
 
-        selectedNumber = e.target.textContent;
-        console.log(selectedNumber);
+            clickCounter++;
+            if ((clickCounter < 2) || (displayValue == 0)) {
+                displayValue = selectedNumber;
+            } else {
+                displayValue += selectedNumber;
+            }
 
-        clickCounter++;
-        if ((clickCounter < 2) || (displayValue == 0)) {
-            displayValue = selectedNumber;
-        } else {
-            displayValue += selectedNumber;
+            display.textContent = displayValue;
         }
-
-        display.textContent = displayValue;
-    }
 
     });
 });
@@ -43,6 +41,7 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
     operator.addEventListener('click', (e) => {
 
+        // resizeFont();
         selectedOperator = e.target.textContent;
         console.log(selectedOperator);
 
@@ -50,6 +49,10 @@ operators.forEach((operator) => {
 
         if (selectedOperator) {
             displayValue = '';
+
+            // display.textContent = displayValue;
+
+
         }
 
     });
@@ -67,9 +70,32 @@ equals.addEventListener('click', () => {
     result = operate(firstNumber, selectedOperator, secondNumber);
 
     console.log(result);
-
+    
     displayValue = result;
+    
+    //  rounded = displayValue.toPrecision(11);
+
+    //  displayValue = rounded;
+
+
     display.textContent = displayValue;
+
+    
+    displayValue = display.textContent;
+    
+
+
+
+
+    sixteen = displayValue.slice(0, 16);
+    displayValue = sixteen;
+        display.textContent = displayValue;
+
+
+    resizeFont();
+
+
+    
 });
 
 // OPERATE
@@ -116,12 +142,13 @@ const clear = document.querySelector('.clear');
 clear.addEventListener('click', () => {
     firstNumber = '';
     secondNumber = '';
+    selectedOperator = '';
     selectedNumber = 0;
     displayValue = 0;
     clickCounter = 0;
+    display.style.fontSize = '48px';
     console.log('clear');
     display.textContent = displayValue;
-    // return displayValue;
 });
 
 // BACKSPACE
@@ -169,20 +196,23 @@ buttons.forEach((button) => {
     });
 });
 
-function resizeFont(){
-if (displayValue.length >= 13) {
-    display.style.fontSize = '45px';
+function resizeFont() {
+    if (display.textContent.length <= 12) {
+        display.style.fontSize = '48px';
+    }
+    if (display.textContent.length >= 13) {
+        display.style.fontSize = '45px';
+    }
+    if (display.textContent.length >= 14) {
+        display.style.fontSize = '42px';
+    }
+    if (display.textContent.length >= 15) {
+        display.style.fontSize = '39px';
+    }
+    if (display.textContent.length >= 16) {
+        display.style.fontSize = '36px';
+    }
 }
-if (displayValue.length >= 14) {
-    display.style.fontSize = '42px';
-}
-if (displayValue.length >= 15) {
-    display.style.fontSize = '39px';
-}
-if (displayValue.length >= 16) {
-    display.style.fontSize = '36px';
-}
-if (displayValue.length <= 12) {
-    display.style.fontSize = '48px';
-}
-}
+
+//
+
