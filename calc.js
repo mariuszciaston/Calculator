@@ -70,16 +70,16 @@ equals.addEventListener('click', () => {
         (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
     ){
 
-        secondNumber = Number(displayValue);
-    result = operate(firstNumber, selectedOperator, secondNumber);
-    console.log(result);
-    console.log(displayValue);
-    
-    displayValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
+            secondNumber = Number(displayValue);
+        result = operate(firstNumber, selectedOperator, secondNumber);
+        console.log(result);
+        console.log(displayValue);
 
-    display.textContent = displayValue;
-    displayValue = display.textContent;
-    resizeFont();
+        displayValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
+
+        display.textContent = displayValue;
+        displayValue = display.textContent;
+        resizeFont();
     }
 
 
