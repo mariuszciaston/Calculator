@@ -65,48 +65,24 @@ const equals = document.querySelector('.equals');
 
 equals.addEventListener('click', () => {
 
-    secondNumber = Number(displayValue);
 
+    if (
+        (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
+    ){
+
+        secondNumber = Number(displayValue);
     result = operate(firstNumber, selectedOperator, secondNumber);
-
     console.log(result);
-    
-    // displayValue = Math.round(result);
-    
     console.log(displayValue);
     
-    // displayValue = result.toFixed(3).replace(/.0+$/, "");  
-
-
-
-
-    // displayValue.toString;
-
-    displayValue = result.toPrecision(11).replace(/0+$/, "");  
-
-    //  rounded = displayValue.toPrecision(11);
-    //  displayValue = rounded;
-
+    displayValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
 
     display.textContent = displayValue;
-
-    
     displayValue = display.textContent;
-    
-
-
-
-
-
-    // sixteen = displayValue.slice(0, 16);
-    // displayValue = sixteen;
-    //     display.textContent = displayValue;
-
-
     resizeFont();
+    }
 
 
-    
 });
 
 // OPERATE
@@ -226,4 +202,3 @@ function resizeFont() {
 }
 
 //
-
