@@ -71,10 +71,20 @@ equals.addEventListener('click', () => {
 
     console.log(result);
     
-    displayValue = result;
+    // displayValue = Math.round(result);
     
-    //  rounded = displayValue.toPrecision(11);
+    console.log(displayValue);
+    
+    // displayValue = result.toFixed(3).replace(/.0+$/, "");  
 
+
+
+
+    // displayValue.toString;
+
+    displayValue = result.toPrecision(11).replace(/0+$/, "");  
+
+    //  rounded = displayValue.toPrecision(11);
     //  displayValue = rounded;
 
 
@@ -87,9 +97,10 @@ equals.addEventListener('click', () => {
 
 
 
-    sixteen = displayValue.slice(0, 16);
-    displayValue = sixteen;
-        display.textContent = displayValue;
+
+    // sixteen = displayValue.slice(0, 16);
+    // displayValue = sixteen;
+    //     display.textContent = displayValue;
 
 
     resizeFont();
