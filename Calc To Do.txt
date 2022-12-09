@@ -7,17 +7,26 @@ Add keyboard support! You might run into an issue where keys such as (/) might c
 
 
 
-FIX this wrong behaviour:
+FIX wrong behaviour:
 
-5 / 5 = = =
+10 x 10 = 100
+
+5 / 5 = = = [1; 0,2; 0,04; 0,008]
+
+12 + 7 - 5 * 3 =
+
+
+BLOCK: 
+
+9 / = 1
+9 x = 81
+9 - = 0
+9 + = 18
+
 9 % %
 9 x x
 
-9 / =
-9 x = 
-9 - =
-9 + = 
 
-10 x 10 =
 
-disable backspace on very long numbers (only delete secondary display content)
+
+
