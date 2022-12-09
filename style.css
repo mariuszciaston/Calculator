@@ -59,9 +59,9 @@ body {
     min-height: 104px;
     margin-bottom: 20px;
 
-    /* word-wrap: break-word;
-    word-break: break-all;
-    text-align: right; */
+    /* word-wrap: break-word; */
+    /* word-break: break-all; */
+    text-align: right;
 
     /* display: block;
     overflow: hidden;
@@ -141,6 +141,14 @@ body {
     background-color: hsl(120, 100%, 75%);
     grid-column: -1/-3;
     aspect-ratio: 0;
+}
+
+.disabled{
+    /* background-color: hsl(0, 0%, 90%);*/
+    /* background-color: silver; */
+    /* color: silver;
+    border-color: silver; */
+    opacity: 0.5;
 }
 
 #footer {

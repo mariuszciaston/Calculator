@@ -9,13 +9,18 @@ const display = document.querySelector('.display');
 display.textContent = displayValue;
 
 let clickCounter = 0;
+const error = "can't divide by 0";
 
 numbers.forEach((number) => {
     number.addEventListener('click', (e) => {
 
+        if (displayValue == error) {
+            clearAll();
+        };
+
         if (displayValue.length == undefined || displayValue.length < 16) {
             selectedNumber = e.target.textContent;
-            console.log(selectedNumber);
+            // console.log(selectedNumber);
 
             clickCounter++;
             if ((clickCounter < 2) || (displayValue == 0)) {
@@ -37,13 +42,12 @@ let selectedOperator = '';
 let secondNumber = '';
 
 const operators = document.querySelectorAll('.operator');
-
 operators.forEach((operator) => {
     operator.addEventListener('click', (e) => {
 
         // resizeFont();
         selectedOperator = e.target.textContent;
-        console.log(selectedOperator);
+        // console.log(selectedOperator);
 
         firstNumber = Number(displayValue);
 
@@ -56,33 +60,6 @@ operators.forEach((operator) => {
         }
 
     });
-});
-
-// EQUALS
-
-let result;
-const equals = document.querySelector('.equals');
-
-equals.addEventListener('click', () => {
-
-
-    if (
-        (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
-    ){
-
-            secondNumber = Number(displayValue);
-        result = operate(firstNumber, selectedOperator, secondNumber);
-        console.log(result);
-        console.log(displayValue);
-
-        displayValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
-
-        display.textContent = displayValue;
-        displayValue = display.textContent;
-        resizeFont();
-    }
-
-
 });
 
 // OPERATE
@@ -100,7 +77,33 @@ function multiply(firstNumber, secondNumber) {
 };
 
 function divide(firstNumber, secondNumber) {
-    return firstNumber / secondNumber;
+
+    if (secondNumber == 0) {
+        displayValue = error;
+        display.textContent = displayValue;
+
+        backspace.classList.add('disabled');
+        backspace.disabled = true;
+
+        operators.forEach((operator) => {
+            operator.classList.add('disabled');
+            operator.disabled = true;
+
+        })
+        decimal.classList.add('disabled');
+        decimal.disabled = true;
+
+
+        // document.querySelector('#button').disabled = true;
+
+
+
+        // if (displayValue != error){
+
+
+    } else {
+        return firstNumber / secondNumber;
+    }
 };
 
 function operate(firstNumber, selectedOperator, secondNumber) {
@@ -122,21 +125,61 @@ function operate(firstNumber, selectedOperator, secondNumber) {
     }
 };
 
+// EQUALS
+
+let result;
+const equals = document.querySelector('.equals');
+
+equals.addEventListener('click', () => {
+    if (displayValue == error) {
+        clearAll();
+    } else if (
+        (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
+    ) {
+        secondNumber = Number(displayValue);
+        result = operate(firstNumber, selectedOperator, secondNumber);
+        // console.log(result);
+        // console.log(displayValue);
+
+        displayValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
+
+        display.textContent = displayValue;
+        displayValue = display.textContent;
+        resizeFont();
+    };
+});
+
 // CLEAR
 
 const clear = document.querySelector('.clear');
 
 clear.addEventListener('click', () => {
+    clearAll();
+});
+
+function clearAll() {
     firstNumber = '';
     secondNumber = '';
     selectedOperator = '';
     selectedNumber = 0;
     displayValue = 0;
     clickCounter = 0;
+    result = '';
     display.style.fontSize = '48px';
-    console.log('clear');
     display.textContent = displayValue;
-});
+
+    backspace.classList.remove('disabled');
+    backspace.disabled = false;
+
+    operators.forEach((operator) => {
+        operator.classList.remove('disabled');
+        operator.disabled = false;
+
+    })
+    decimal.classList.remove('disabled');
+    decimal.disabled = false;
+
+}
 
 // BACKSPACE
 
@@ -151,13 +194,20 @@ backspace.addEventListener('click', () => {
     display.textContent = displayValue;
     resizeFont();
     // displayValue = parseInt(displayValue);
-    console.log('backspace');
+    // console.log('backspace');
+});
+
+// DECIMAL
+
+const decimal = document.querySelector('.decimal');
+
+decimal.addEventListener('click', () => {
+    // console.log('decimal');
 });
 
 // BUTTON PRESS ANIMATION
 
 const buttons = document.querySelectorAll('.btn');
-
 
 buttons.forEach((button) => {
     button.addEventListener('mousedown', () => {
@@ -175,7 +225,7 @@ buttons.forEach((button) => {
     });
 });
 
-// DECREASE FONT SIZE WHEN MORE THAN 12 DIGITS
+// CHANGE FONT SIZE TO FIT ON DISPLAY
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -200,5 +250,3 @@ function resizeFont() {
         display.style.fontSize = '36px';
     }
 }
-
-//
