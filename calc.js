@@ -45,21 +45,26 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
     operator.addEventListener('click', (e) => {
 
+
+        
+        equalsNow();
+        
         // resizeFont();
         selectedOperator = e.target.textContent;
         // console.log(selectedOperator);
-
+        
         firstNumber = Number(displayValue);
-
+        
         if (selectedOperator) {
             displayValue = '';
-
+            
             // display.textContent = displayValue;
-
-
+            
+            
         }
-
+        
     });
+    
 });
 
 // OPERATE
@@ -131,23 +136,27 @@ let result;
 const equals = document.querySelector('.equals');
 
 equals.addEventListener('click', () => {
-    if (displayValue == error) {
-        clearAll();
-    } else if (
-        (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
-    ) {
-        secondNumber = Number(displayValue);
-        result = operate(firstNumber, selectedOperator, secondNumber);
-        // console.log(result);
-        // console.log(displayValue);
-
-        displayValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
-
-        display.textContent = displayValue;
-        displayValue = display.textContent;
-        resizeFont();
-    };
+    equalsNow();
 });
+
+function equalsNow(){
+if (displayValue == error) {
+    clearAll();
+} else if (
+    (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
+) {
+    secondNumber = Number(displayValue);
+    result = operate(firstNumber, selectedOperator, secondNumber);
+    // console.log(result);
+    // console.log(displayValue);
+
+    displayValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
+
+    display.textContent = displayValue;
+    displayValue = display.textContent;
+    resizeFont();
+};
+}
 
 // CLEAR
 
