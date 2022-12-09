@@ -48,24 +48,34 @@ body {
 
 .display {
     display: flex;
-    align-items: center;
-    justify-content: right;
+    flex-direction: column;
+    justify-content: center;
     padding: 10px;
     box-sizing: border-box;
     background-color: white;
     color: inherit;
     font-family: inherit;
-    font-size: 48px;
-    min-height: 104px;
     margin-bottom: 20px;
-
-    /* word-wrap: break-word; */
-    /* word-break: break-all; */
+    min-height: 108px;
     text-align: right;
+}
 
-    /* display: block;
-    overflow: hidden;
-    text-overflow: ellipsis; */
+.secondary {
+    font-size: 24px;
+    display: inherit;
+    flex-direction: inherit;
+    justify-content: inherit;
+    flex: 1;
+    min-height: 29.6px;
+}
+
+.primary {
+    font-size: 48px;
+    display: inherit;
+    flex-direction: inherit;
+    justify-content: inherit;
+    flex: 1.5;
+    overflow-wrap: break-word;
 }
 
 .buttons-grid {
@@ -85,7 +95,6 @@ body {
     overflow: hidden;
     min-height: 52px;
     aspect-ratio: 1/1;
-    /* transition: transform 0.2s;  */
 }
 
 .btn:hover {
@@ -143,11 +152,7 @@ body {
     aspect-ratio: 0;
 }
 
-.disabled{
-    /* background-color: hsl(0, 0%, 90%);*/
-    /* background-color: silver; */
-    /* color: silver;
-    border-color: silver; */
+.disabled {
     opacity: 0.5;
 }
 

@@ -1,35 +1,41 @@
 // NUMBERS
 
+
 let selectedNumber = 0;
 const numbers = document.querySelectorAll('.num');
 
-let displayValue = 0;
+let primaryValue = 0;
+let secondaryValue = '';
 
-const display = document.querySelector('.display');
-display.textContent = displayValue;
+const secondaryDisplay = document.querySelector('.secondary');
+const primaryDisplay = document.querySelector('.primary');
+secondaryDisplay.textContent = secondaryValue;
+primaryDisplay.textContent = primaryValue;
 
 let clickCounter = 0;
-const error = "can't divide by 0";
+const error = "cant divide by 0";
 
 numbers.forEach((number) => {
     number.addEventListener('click', (e) => {
 
-        if (displayValue == error) {
+        if (primaryValue == error) {
             clearAll();
         };
 
-        if (displayValue.length == undefined || displayValue.length < 16) {
+        if (primaryValue.length == undefined || primaryValue.length < 16) {
             selectedNumber = e.target.textContent;
             // console.log(selectedNumber);
 
             clickCounter++;
-            if ((clickCounter < 2) || (displayValue == 0)) {
-                displayValue = selectedNumber;
+            if ((clickCounter < 2) || (primaryValue == 0)) {
+                primaryValue = selectedNumber;
             } else {
-                displayValue += selectedNumber;
+                primaryValue += selectedNumber;
             }
 
-            display.textContent = displayValue;
+            
+            primaryDisplay.textContent = primaryValue;
+           
         }
 
     });
@@ -41,30 +47,36 @@ let firstNumber = '';
 let selectedOperator = '';
 let secondNumber = '';
 
+let operation = [firstNumber, selectedOperator, secondNumber];
+
 const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
     operator.addEventListener('click', (e) => {
 
-
-        
         equalsNow();
-        
+
         // resizeFont();
         selectedOperator = e.target.textContent;
         // console.log(selectedOperator);
+
+        firstNumber = Number(primaryValue);
+        operation = [firstNumber, selectedOperator, secondNumber];
+
+
+        // secondaryValue = primaryValue;
+        // secondaryValue += selectedOperator;
+        // secondaryDisplay.textContent = secondaryValue;
+        secondaryDisplay.textContent =  firstNumber + selectedOperator;
         
-        firstNumber = Number(displayValue);
         
         if (selectedOperator) {
-            displayValue = '';
+            primaryValue = '';
             
-            // display.textContent = displayValue;
-            
+            // primaryDisplay.textContent = primaryValue;
             
         }
-        
     });
-    
+
 });
 
 // OPERATE
@@ -84,8 +96,8 @@ function multiply(firstNumber, secondNumber) {
 function divide(firstNumber, secondNumber) {
 
     if (secondNumber == 0) {
-        displayValue = error;
-        display.textContent = displayValue;
+        primaryValue = error;
+        primaryDisplay.textContent = primaryValue;
 
         backspace.classList.add('disabled');
         backspace.disabled = true;
@@ -103,7 +115,7 @@ function divide(firstNumber, secondNumber) {
 
 
 
-        // if (displayValue != error){
+        // if (primaryValue != error){
 
 
     } else {
@@ -139,23 +151,46 @@ equals.addEventListener('click', () => {
     equalsNow();
 });
 
-function equalsNow(){
-if (displayValue == error) {
-    clearAll();
-} else if (
-    (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
-) {
-    secondNumber = Number(displayValue);
-    result = operate(firstNumber, selectedOperator, secondNumber);
-    // console.log(result);
-    // console.log(displayValue);
+function equalsNow() {
+    if (primaryValue == error) {
+        clearAll();
+    } else if (
+        (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
+    ) {
 
-    displayValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
+        
+    
+        secondNumber = Number(selectedNumber);
+        
+        
+        // secondNumber = Number(primaryValue);
+        
 
-    display.textContent = displayValue;
-    displayValue = display.textContent;
-    resizeFont();
-};
+
+        // let operation = [firstNumber, selectedOperator, secondNumber];
+
+
+
+        // secondaryValue += secondNumber;
+        // secondaryValue += '=';
+        // secondaryDisplay.textContent = secondaryValue;
+        secondaryDisplay.textContent =  firstNumber + selectedOperator + secondNumber  + '=';
+
+            
+            
+            
+            
+            result = operate(firstNumber, selectedOperator, secondNumber);
+            firstNumber = result;
+        // console.log(result);
+        // console.log(primaryValue);
+
+        primaryValue = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
+
+        primaryDisplay.textContent = primaryValue;
+        primaryValue = primaryDisplay.textContent;
+        resizeFont();
+    };
 }
 
 // CLEAR
@@ -171,11 +206,14 @@ function clearAll() {
     secondNumber = '';
     selectedOperator = '';
     selectedNumber = 0;
-    displayValue = 0;
+    primaryValue = 0;
+    secondaryValue = '';
     clickCounter = 0;
     result = '';
-    display.style.fontSize = '48px';
-    display.textContent = displayValue;
+    secondaryDisplay.style.fontSize = '24px';
+    primaryDisplay.style.fontSize = '48px';
+    secondaryDisplay.textContent = secondaryValue;
+    primaryDisplay.textContent = primaryValue;
 
     backspace.classList.remove('disabled');
     backspace.disabled = false;
@@ -183,11 +221,11 @@ function clearAll() {
     operators.forEach((operator) => {
         operator.classList.remove('disabled');
         operator.disabled = false;
-
     })
     decimal.classList.remove('disabled');
     decimal.disabled = false;
 
+    // console.clear();
 }
 
 // BACKSPACE
@@ -195,15 +233,13 @@ function clearAll() {
 const backspace = document.querySelector('.backspace');
 
 backspace.addEventListener('click', () => {
-    displayValue = displayValue.toString();
-    displayValue = displayValue.slice(0, -1);
-    if (displayValue.length < 1) {
-        displayValue = 0;
+    primaryValue = primaryValue.toString();
+    primaryValue = primaryValue.slice(0, -1);
+    if (primaryValue.length < 1) {
+        primaryValue = 0;
     }
-    display.textContent = displayValue;
+    primaryDisplay.textContent = primaryValue;
     resizeFont();
-    // displayValue = parseInt(displayValue);
-    // console.log('backspace');
 });
 
 // DECIMAL
@@ -224,6 +260,18 @@ buttons.forEach((button) => {
         button.offsetHeight;
         button.style.animation = "press 0.2s"
         button.classList.add('hold');
+
+        // console.clear();
+
+        // console.log(
+        //     "firstNumber: " + firstNumber,
+        //     "\n",
+        //     "selectedOperator: " + selectedOperator,
+        //     "\n",
+        //     "secondNumber: " + secondNumber
+        // );
+
+ 
     });
 
     button.addEventListener('mouseup', () => {
@@ -243,19 +291,35 @@ buttons.forEach((button) => {
 });
 
 function resizeFont() {
-    if (display.textContent.length <= 12) {
-        display.style.fontSize = '48px';
+    if (secondaryDisplay.textContent.length <= 12) {
+        secondaryDisplay.style.fontSize = '24px';
     }
-    if (display.textContent.length >= 13) {
-        display.style.fontSize = '45px';
+    if (secondaryDisplay.textContent.length >= 13) {
+        secondaryDisplay.style.fontSize = '22,5px';
     }
-    if (display.textContent.length >= 14) {
-        display.style.fontSize = '42px';
+    if (secondaryDisplay.textContent.length >= 14) {
+        secondaryDisplay.style.fontSize = '21px';
     }
-    if (display.textContent.length >= 15) {
-        display.style.fontSize = '39px';
+    if (secondaryDisplay.textContent.length >= 15) {
+        secondaryDisplay.style.fontSize = '19,5px';
     }
-    if (display.textContent.length >= 16) {
-        display.style.fontSize = '36px';
+    if (secondaryDisplay.textContent.length >= 16) {
+        secondaryDisplay.style.fontSize = '18px';
+    }
+
+    if (primaryDisplay.textContent.length <= 12) {
+        primaryDisplay.style.fontSize = '48px';
+    }
+    if (primaryDisplay.textContent.length >= 13) {
+        primaryDisplay.style.fontSize = '45px';
+    }
+    if (primaryDisplay.textContent.length >= 14) {
+        primaryDisplay.style.fontSize = '42px';
+    }
+    if (primaryDisplay.textContent.length >= 15) {
+        primaryDisplay.style.fontSize = '39px';
+    }
+    if (primaryDisplay.textContent.length >= 16) {
+        primaryDisplay.style.fontSize = '36px';
     }
 }
