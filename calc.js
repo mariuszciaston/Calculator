@@ -1,6 +1,4 @@
 // NUMBERS
-
-
 let selectedNumber = 0;
 let selectedValue = '';
 const numbers = document.querySelectorAll('.num');
@@ -26,23 +24,15 @@ numbers.forEach((number) => {
         if (primaryValue.length == undefined || primaryValue.length < 16) {
             selectedNumber = e.target.textContent;
             selectedValue += selectedNumber;
-            
+
             clickCounter++;
             if ((clickCounter < 2) || (primaryValue == 0)) {
                 primaryValue = selectedNumber;
             } else {
                 primaryValue += selectedNumber;
             }
-            
-            
             primaryDisplay.textContent = primaryValue;
-            
-            
-            
-            // console.log(selectedNumber);
-            // console.log(selectedValue);
         }
-
     });
 });
 
@@ -52,69 +42,24 @@ let firstNumber = '';
 let selectedOperator = '';
 let secondNumber = '';
 
-// let operation = [firstNumber, selectedOperator, secondNumber];
-
 const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
     operator.addEventListener('click', (e) => {
 
-    
-        // operator.disabled = true;
-        // operator.classList.add('disabled');
-
         secondNumber = Number(selectedValue);
-       if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')){
-     
-
-           
-           equalsNow();
-           
-    }
-
-
-        // resizeFont();
+        if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
+            equalsNow();
+        }
         selectedOperator = e.target.textContent;
-
-
-
-        
-        // if (
-            //     (firstNumber != '') && (selectedOperator != '') && (secondNumber != '')
-            //     ){
-                
-                
-                //     };
-                
-                
-
-        // console.log(selectedOperator);
-
-
         primaryValue = primaryDisplay.textContent
-
-
         firstNumber = Number(primaryValue);
-        // operation = [firstNumber, selectedOperator, secondNumber];
-        
-        
-        // secondaryValue = primaryValue;
-        // secondaryValue += selectedOperator;
-        // secondaryDisplay.textContent = secondaryValue;
         secondaryDisplay.textContent = firstNumber + selectedOperator;
-        
-        
         selectedValue = '';
-        // selectedValue += primaryValue;
 
-        
         if (selectedOperator) {
             primaryValue = '';
-            
-            // primaryDisplay.textContent = primaryValue;
-            
         }
     });
-
 });
 
 // OPERATE
@@ -143,18 +88,10 @@ function divide(firstNumber, secondNumber) {
         operators.forEach((operator) => {
             operator.classList.add('disabled');
             operator.disabled = true;
-
         })
+
         decimal.classList.add('disabled');
         decimal.disabled = true;
-
-
-        // document.querySelector('#button').disabled = true;
-
-
-
-        // if (primaryValue != error){
-
 
     } else {
         return firstNumber / secondNumber;
@@ -187,20 +124,11 @@ const equals = document.querySelector('.equals');
 
 equals.addEventListener('click', () => {
 
-
     secondNumber = Number(selectedValue);
 
-    if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')){
-    
-    equalsNow();
+    if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
+        equalsNow();
     }
-    
-    
-    
-
-
-
-
 });
 
 function equalsNow() {
@@ -208,61 +136,16 @@ function equalsNow() {
         clearAll();
     } else if (
         (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
-        ) {
-
-
-            secondNumber = Number(selectedValue);
-
-
-
-
-
-            
-
-        // primaryValue += selectedNumber;
-        // secondNumber = Number(primaryValue);
-        
-     
-        
-        // let operation = [firstNumber, selectedOperator, secondNumber];
-        
-        
-        
-        // secondaryValue += secondNumber;
-        // secondaryValue += '=';
-        // secondaryDisplay.textContent = secondaryValue;
-        
-        
-        // primaryValue = primaryDisplay.textContent;
-        
-        
-        
-        
-        //         if (primaryValue != ''){
-            
-            //             secondNumber = Number(selectedValue);
-            
-            
-            
-            //         }
-            // else{
-                //     primaryValue = primaryDisplay.textContent;
-//     secondNumber = Number(primaryValue);
-// }
-
-
-
-// secondNumber = Number(selectedNumber);
-
-
-result = operate(firstNumber, selectedOperator, secondNumber);
-result = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
-primaryValue = result;
-secondaryDisplay.textContent = firstNumber + selectedOperator + secondNumber + '=';
-primaryDisplay.textContent = primaryValue;
-primaryValue = primaryDisplay.textContent;
-resizeFont();
-firstNumber = result;
+    ) {
+        secondNumber = Number(selectedValue);
+        result = operate(firstNumber, selectedOperator, secondNumber);
+        result = result.toPrecision(11).replace(/0+$/, "").replace(/\.$/, "");
+        primaryValue = result;
+        secondaryDisplay.textContent = firstNumber + selectedOperator + secondNumber + '=';
+        primaryDisplay.textContent = primaryValue;
+        primaryValue = primaryDisplay.textContent;
+        resizeFont();
+        firstNumber = result;
     };
 }
 
@@ -298,8 +181,6 @@ function clearAll() {
     })
     decimal.classList.remove('disabled');
     decimal.disabled = false;
-
-    // console.clear();
 }
 
 // BACKSPACE
@@ -335,17 +216,14 @@ buttons.forEach((button) => {
         button.style.animation = "press 0.2s"
         button.classList.add('hold');
 
-        console.clear();
-
-        console.log(
-            "firstNumber: " + firstNumber,
-            "\n",
-            "selectedOperator: " + selectedOperator,
-            "\n",
-            "secondNumber: " + secondNumber
-        );
-
-
+        // console.clear();
+        // console.log(
+        //     "firstNumber: " + firstNumber,
+        //     "\n",
+        //     "selectedOperator: " + selectedOperator,
+        //     "\n",
+        //     "secondNumber: " + secondNumber
+        // );
     });
 
     button.addEventListener('mouseup', () => {
