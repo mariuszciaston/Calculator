@@ -35,8 +35,8 @@ numbers.forEach((number) => {
       selectedDigit = e.target.textContent;
       selectedNumber += selectedDigit;
 
-      clickCounter += 1;
-      if ((clickCounter < 2) || (primaryValue == 0)) {
+      if ((primaryValue == '0') && (selectedDigit != '.')) {
+
         primaryValue = selectedDigit;
       } else {
         primaryValue += selectedDigit;
@@ -72,7 +72,7 @@ operators.forEach((operator) => {
     selectedOperator = e.target.textContent;
 
     primaryValue = primaryDisplay.textContent;
-    firstNumber = Number(primaryValue);
+    firstNumber = primaryValue;
     secondaryDisplay.textContent = firstNumber + selectedOperator;
     selectedNumber = '';
 
@@ -157,6 +157,9 @@ function equalsNow() {
   } else if (
     (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
   ) {
+     firstNumber = Number(firstNumber);
+    //  selectedOperator = selectedOperator;
+
     secondNumber = Number(selectedNumber);
     result = operate(firstNumber, selectedOperator, secondNumber);
     result = result.toPrecision(11).replace(/0+$/, '').replace(/\.$/, '');
@@ -188,7 +191,7 @@ function clearAll() {
   selectedNumber = '';
   primaryValue = 0;
   secondaryValue = '';
-  clickCounter = 0;
+  // clickCounter = 0;
   result = '';
   secondaryDisplay.style.fontSize = '24px';
   primaryDisplay.style.fontSize = '48px';
