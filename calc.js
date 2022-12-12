@@ -25,24 +25,63 @@ const error = 'cant divide by 0';
 //   }
 // });
 
+const decimal = document.querySelector('.decimal');
+
 numbers.forEach((number) => {
   number.addEventListener('click', (e) => {
-    if (primaryValue === error) {
+    if (primaryValue == error) {
       clearAll();
     }
 
-    if (primaryValue.length === undefined || primaryValue.length < 16) {
-      selectedNumber = e.target.textContent;
-      selectedValue += selectedNumber;
 
-      clickCounter += 1;
-      if ((clickCounter < 2) || (primaryValue === 0)) {
+    
+    
+    //   selectedDecimal = e.target.textContent;
+    //   primaryValue += selectedDecimal;
+      // primaryDisplay.textContent = primaryValue;
+      
+
+      
+      
+      
+      if (primaryValue.length == undefined || primaryValue.length < 16) {
+        selectedNumber = e.target.textContent;
+        selectedValue += selectedNumber;
+        
+        clickCounter += 1;
+        if ((clickCounter < 2) || (primaryValue == 0)) {
         primaryValue = selectedNumber;
       } else {
         primaryValue += selectedNumber;
       }
       primaryDisplay.textContent = primaryValue;
     }
+    
+    if (primaryValue.includes('.')) {
+        decimal.disabled = true;
+        } else {
+        decimal.disabled = false;
+        }
+
+
+    
+// DECIMAL
+
+
+// decimal.addEventListener('click', (e) => {
+  
+//   if (primaryValue.includes('.')) {
+//   decimal.disabled = true;
+//   } else {
+//   decimal.disabled = false;
+//   }
+//   selectedDecimal = e.target.textContent;
+//   primaryValue += selectedDecimal;
+// primaryDisplay.textContent = primaryValue;
+// });
+
+
+
   });
 });
 
@@ -56,10 +95,11 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
     secondNumber = Number(selectedValue);
-    if ((firstNumber !== '') && (selectedOperator !== '') && (secondNumber !== '')) {
+    if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
       equalsNow();
     }
     selectedOperator = e.target.textContent;
+    
     primaryValue = primaryDisplay.textContent;
     firstNumber = Number(primaryValue);
     secondaryDisplay.textContent = firstNumber + selectedOperator;
@@ -86,7 +126,7 @@ function multiply(firstNumber, secondNumber) {
 }
 
 function divide(firstNumber, secondNumber) {
-  if (secondNumber === 0) {
+  if (secondNumber == 0) {
     primaryValue = error;
     primaryDisplay.textContent = primaryValue;
 
@@ -106,19 +146,19 @@ function divide(firstNumber, secondNumber) {
 }
 
 function operate(firstNumber, selectedOperator, secondNumber) {
-  if (selectedOperator === '+') {
+  if (selectedOperator == '+') {
     return add(firstNumber, secondNumber);
   }
 
-  if (selectedOperator === '-') {
+  if (selectedOperator == '-') {
     return substract(firstNumber, secondNumber);
   }
 
-  if (selectedOperator === 'x') {
+  if (selectedOperator == 'x') {
     return multiply(firstNumber, secondNumber);
   }
 
-  if (selectedOperator === '÷') {
+  if (selectedOperator == '÷') {
     return divide(firstNumber, secondNumber);
   }
 }
@@ -131,16 +171,16 @@ const equals = document.querySelector('.equals');
 equals.addEventListener('click', () => {
   secondNumber = Number(selectedValue);
 
-  if ((firstNumber !== '') && (selectedOperator !== '') && (secondNumber !== '')) {
+  if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
     equalsNow();
   }
 });
 
 function equalsNow() {
-  if (primaryValue === error) {
+  if (primaryValue == error) {
     clearAll();
   } else if (
-    (firstNumber !== '') || (selectedOperator !== '') || (secondNumber !== '')
+    (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
   ) {
     secondNumber = Number(selectedValue);
     result = operate(firstNumber, selectedOperator, secondNumber);
@@ -200,27 +240,6 @@ backspace.addEventListener('click', () => {
   }
   primaryDisplay.textContent = primaryValue;
   resizeFont();
-});
-
-// DECIMAL
-
-const decimal = document.querySelector('.decimal');
-
-decimal.addEventListener('click', (e) => {
-  
-//   if (primaryValue.includes('.')) {
-//   decimal.disabled = true;
-//   } else {
-//   decimal.disabled = false;
-//   }
-//   selectedDecimal = e.target.textContent;
-//   primaryValue += selectedDecimal;
-// primaryDisplay.textContent = primaryValue;
-
-
-
-// resizeFont();
-
 });
 
 // BUTTON PRESS ANIMATION
