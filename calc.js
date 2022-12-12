@@ -1,7 +1,6 @@
 // NUMBERS
-let selectedNumber = 0;
-let selectedValue = '';
-let selectedDecimal = '';
+let selectedDigit = 0;
+let selectedNumber = '';
 const numbers = document.querySelectorAll('.num');
 
 let primaryValue = 0;
@@ -19,9 +18,9 @@ const error = 'cant divide by 0';
 
 // document.addEventListener('keydown', (e) => {
 //   if ((e.key >= '0') && (e.key <= '9')) {
-//     selectedNumber = parseInt(e.key);
-//     selectedValue += selectedNumber;
-//     primaryDisplay.textContent = selectedValue;
+//     selectedDigit = parseInt(e.key);
+//     selectedNumber += selectedDigit;
+//     primaryDisplay.textContent = selectedNumber;
 //   }
 // });
 
@@ -32,56 +31,24 @@ numbers.forEach((number) => {
     if (primaryValue == error) {
       clearAll();
     }
+    if (primaryValue.length == undefined || primaryValue.length < 16) {
+      selectedDigit = e.target.textContent;
+      selectedNumber += selectedDigit;
 
-
-    
-    
-    //   selectedDecimal = e.target.textContent;
-    //   primaryValue += selectedDecimal;
-      // primaryDisplay.textContent = primaryValue;
-      
-
-      
-      
-      
-      if (primaryValue.length == undefined || primaryValue.length < 16) {
-        selectedNumber = e.target.textContent;
-        selectedValue += selectedNumber;
-        
-        clickCounter += 1;
-        if ((clickCounter < 2) || (primaryValue == 0)) {
-        primaryValue = selectedNumber;
+      clickCounter += 1;
+      if ((clickCounter < 2) || (primaryValue == 0)) {
+        primaryValue = selectedDigit;
       } else {
-        primaryValue += selectedNumber;
+        primaryValue += selectedDigit;
       }
       primaryDisplay.textContent = primaryValue;
     }
-    
+
     if (primaryValue.includes('.')) {
-        decimal.disabled = true;
-        } else {
-        decimal.disabled = false;
-        }
-
-
-    
-// DECIMAL
-
-
-// decimal.addEventListener('click', (e) => {
-  
-//   if (primaryValue.includes('.')) {
-//   decimal.disabled = true;
-//   } else {
-//   decimal.disabled = false;
-//   }
-//   selectedDecimal = e.target.textContent;
-//   primaryValue += selectedDecimal;
-// primaryDisplay.textContent = primaryValue;
-// });
-
-
-
+      decimal.disabled = true;
+    } else {
+      decimal.disabled = false;
+    }
   });
 });
 
@@ -94,16 +61,20 @@ let secondNumber = '';
 const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
-    secondNumber = Number(selectedValue);
+
+
+    secondNumber = selectedNumber;
+
+
     if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
       equalsNow();
     }
     selectedOperator = e.target.textContent;
-    
+
     primaryValue = primaryDisplay.textContent;
     firstNumber = Number(primaryValue);
     secondaryDisplay.textContent = firstNumber + selectedOperator;
-    selectedValue = '';
+    selectedNumber = '';
 
     if (selectedOperator) {
       primaryValue = '';
@@ -140,6 +111,10 @@ function divide(firstNumber, secondNumber) {
 
     decimal.classList.add('disabled');
     decimal.disabled = true;
+
+    // return error; // <- dodane polecenie return
+
+
   } else {
     return firstNumber / secondNumber;
   }
@@ -169,7 +144,7 @@ let result;
 const equals = document.querySelector('.equals');
 
 equals.addEventListener('click', () => {
-  secondNumber = Number(selectedValue);
+  secondNumber = selectedNumber;
 
   if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
     equalsNow();
@@ -182,7 +157,7 @@ function equalsNow() {
   } else if (
     (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
   ) {
-    secondNumber = Number(selectedValue);
+    secondNumber = Number(selectedNumber);
     result = operate(firstNumber, selectedOperator, secondNumber);
     result = result.toPrecision(11).replace(/0+$/, '').replace(/\.$/, '');
     primaryValue = result;
@@ -191,6 +166,9 @@ function equalsNow() {
     primaryValue = primaryDisplay.textContent;
     resizeFont();
     firstNumber = result;
+
+    selectedNumber = '';
+
   }
 }
 
@@ -206,8 +184,8 @@ function clearAll() {
   firstNumber = '';
   secondNumber = '';
   selectedOperator = '';
-  selectedNumber = 0;
-  selectedValue = '';
+  selectedDigit = 0;
+  selectedNumber = '';
   primaryValue = 0;
   secondaryValue = '';
   clickCounter = 0;
@@ -253,14 +231,27 @@ buttons.forEach((button) => {
     button.style.animation = 'press 0.2s';
     button.classList.add('hold');
 
+
+
+
+
+
     // console.clear();
     // console.log(
-    //     "firstNumber: " + firstNumber,
-    //     "\n",
-    //     "selectedOperator: " + selectedOperator,
-    //     "\n",
-    //     "secondNumber: " + secondNumber
+    //   "firstNumber: " + firstNumber,
+    //   "\n",
+    //   "selectedOperator: " + selectedOperator,
+    //   "\n",
+    //   "secondNumber: " + secondNumber,
+    //   "\n",
+    //   "selectedNumber: " + selectedNumber,
+    //   "\n",
+    //   "primaryValue: " + primaryValue,
+    //   "\n",
+    //   "result: " + result
     // );
+
+
   });
 
   button.addEventListener('mouseup', () => {

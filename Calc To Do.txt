@@ -4,6 +4,9 @@ Add keyboard support! You might run into an issue where keys such as (/) might c
 -MAJOR CODE CLEAN UP
 -REFACTORIZATION?
 
+-fix cacluation  12 + 7 - 5 * 3 = vs 9 % %
+add divide by zero error
+
 
 DONE !!!!!!!!!!!!!!!
 
