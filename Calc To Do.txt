@@ -18,6 +18,7 @@ FIX wrong behaviour:
 
 12 + 7 - 5 * 3 =
 
+0-5 =
 
 BLOCK: 
 

@@ -16,13 +16,72 @@ const error = 'cant divide by 0';
 
 // Add keyboard support
 
-// document.addEventListener('keydown', (e) => {
-//   if ((e.key >= '0') && (e.key <= '9')) {
-//     selectedDigit = parseInt(e.key);
-//     selectedNumber += selectedDigit;
-//     primaryDisplay.textContent = selectedNumber;
-//   }
-// });
+document.addEventListener('keydown', (e) => {
+  // if (primaryValue.length == undefined || primaryValue.length < 16) {
+
+  if ((e.key >= '0') && (e.key <= '9')) {
+    selectedDigit = parseInt(e.key);
+    selectedNumber += selectedDigit;
+    primaryDisplay.textContent = selectedNumber;
+  }
+  if (e.key == '+' || e.key == '-') {
+
+    selectedOperator = e.key;
+
+    primaryValue = primaryDisplay.textContent;
+    firstNumber = primaryValue;
+    secondaryDisplay.textContent = firstNumber + selectedOperator;
+    selectedNumber = '';
+
+    if (selectedOperator) {
+      primaryValue = '';
+    }
+  }
+
+
+  if (e.key == '*') {
+    selectedOperator = 'x';
+
+    primaryValue = primaryDisplay.textContent;
+    firstNumber = primaryValue;
+    secondaryDisplay.textContent = firstNumber + selectedOperator;
+    selectedNumber = '';
+
+    if (selectedOperator) {
+      primaryValue = '';
+    }
+
+
+  }
+
+  if (e.key == '/') {
+    selectedOperator = '÷';
+
+    primaryValue = primaryDisplay.textContent;
+    firstNumber = primaryValue;
+    secondaryDisplay.textContent = firstNumber + selectedOperator;
+    selectedNumber = '';
+
+    if (selectedOperator) {
+      primaryValue = '';
+    }
+  }
+  
+  // if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
+  if (e.key == '=' || e.key == 'Enter') {
+      equalsNow();
+    // }
+  };
+
+
+  // if (e.key === '.') appendPoint()
+  // if (e.key === 'Backspace') deleteNumber()
+  // if (e.key === 'Escape') {clearAll()};
+
+
+  resizeFont()
+  // )
+});
 
 const decimal = document.querySelector('.decimal');
 
@@ -79,6 +138,7 @@ operators.forEach((operator) => {
     if (selectedOperator) {
       primaryValue = '';
     }
+
   });
 });
 
@@ -157,7 +217,7 @@ function equalsNow() {
   } else if (
     (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
   ) {
-     firstNumber = Number(firstNumber);
+    firstNumber = Number(firstNumber);
     //  selectedOperator = selectedOperator;
 
     secondNumber = Number(selectedNumber);
