@@ -1,24 +1,29 @@
 Add keyboard support! You might run into an issue where keys such as (/) might cause you some trouble. Read the MDN documentation for event.preventDefault to help solve this problem.
 
+Enter
+backspace
+clear -> escape
+decimal .
+max 16 characters on keyboard input
+na zmianę wprowadzanie z klawiatury lub myszki..
+dodać odstęp w secondray display przy wprowadzaniu z klawiatury
 
 -MAJOR CODE CLEAN UP
 -REFACTORIZATION?
 
--fix cacluation  12 + 7 - 5 * 3 = vs 9 % %
-add divide by zero error
 
 
-DONE !!!!!!!!!!!!!!!
 
-FIX wrong behaviour:
+
+
+
+
+DONE!
 
 10 x 10 = 100
-
 5 / 5 = = = [1; 0,2; 0,04; 0,008]
-
 12 + 7 - 5 * 3 =
-
-0-5 =
+0 - 5 =
 
 BLOCK: 
 

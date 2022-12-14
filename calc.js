@@ -8,126 +8,58 @@ let secondaryValue = '';
 
 const secondaryDisplay = document.querySelector('.secondary');
 const primaryDisplay = document.querySelector('.primary');
+
 secondaryDisplay.textContent = secondaryValue;
 primaryDisplay.textContent = primaryValue;
 
-let clickCounter = 0;
 const error = 'cant divide by 0';
-
-// Add keyboard support
-
-document.addEventListener('keydown', (e) => {
-  // if (primaryValue.length == undefined || primaryValue.length < 16) {
-
-  if ((e.key >= '0') && (e.key <= '9')) {
-    selectedDigit = parseInt(e.key);
-    selectedNumber += selectedDigit;
-    primaryDisplay.textContent = selectedNumber;
-  }
-  if (e.key == '+' || e.key == '-') {
-
-    selectedOperator = e.key;
-
-    primaryValue = primaryDisplay.textContent;
-    firstNumber = primaryValue;
-    secondaryDisplay.textContent = firstNumber + selectedOperator;
-    selectedNumber = '';
-
-    if (selectedOperator) {
-      primaryValue = '';
-    }
-  }
-
-
-  if (e.key == '*') {
-    selectedOperator = 'x';
-
-    primaryValue = primaryDisplay.textContent;
-    firstNumber = primaryValue;
-    secondaryDisplay.textContent = firstNumber + selectedOperator;
-    selectedNumber = '';
-
-    if (selectedOperator) {
-      primaryValue = '';
-    }
-
-
-  }
-
-  if (e.key == '/') {
-    selectedOperator = '÷';
-
-    primaryValue = primaryDisplay.textContent;
-    firstNumber = primaryValue;
-    secondaryDisplay.textContent = firstNumber + selectedOperator;
-    selectedNumber = '';
-
-    if (selectedOperator) {
-      primaryValue = '';
-    }
-  }
-
-
-  if (e.key == '=' || e.key == 'Enter') {
-    secondNumber = selectedNumber;
-    if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
-      equalsNow();
-    }
-  };
-
-
-
-
-
-
-  // if (e.key === '.') appendPoint()
-  // if (e.key === 'Backspace') deleteNumber()
-  // if (e.key === 'Escape') {clearAll()};
-
-
-  resizeFont()
-  // )
-});
-
 const decimal = document.querySelector('.decimal');
+
+
+
 
 numbers.forEach((number) => {
   number.addEventListener('click', (e) => {
-    if (primaryValue == error) {
-      clearAll();
-    }
-    if (primaryValue.length == undefined || primaryValue.length < 16) {
-      selectedDigit = e.target.textContent;
-      selectedNumber += selectedDigit;
-
-       if ((primaryValue == '0') && (selectedDigit != '.')) {
-        primaryValue = selectedDigit;
-      }
-      else  {
-        primaryValue += selectedDigit;
-      }
-      
-      if ((primaryValue == '.') ) {
-      primaryValue = 0 + selectedDigit;
-    }
-    
-
-
-      primaryDisplay.textContent = primaryValue;
-    }
-
-
-    if (primaryValue.includes('.')) {
-      decimal.disabled = true;
-    } else {
-      decimal.disabled = false;
-    }
-
-
-
-
+    numberInput(e);
   });
 });
+
+function numberInput(e) {
+  if (primaryValue == error) {
+    clearAll();
+  }
+  if (primaryValue.length == undefined || primaryValue.length < 16) {
+    if (e.type === 'click') {
+      selectedDigit = e.target.textContent;
+    }
+    if (e.type === 'keydown') {
+      selectedDigit = e.key;
+    }
+    selectedNumber += selectedDigit;
+    if ((primaryValue == '0') && (selectedDigit != '.')) {
+      primaryValue = selectedDigit;
+    } else {
+      primaryValue += selectedDigit;
+    }
+
+    if (primaryValue == '.') {
+      primaryValue = 0 + selectedDigit;
+    }
+
+    primaryDisplay.textContent = primaryValue;
+  }
+
+  if (primaryValue.includes('.')) {
+    decimal.disabled = true;
+  } else {
+    decimal.disabled = false;
+  }
+};
+
+
+
+
+
 
 // OPERATORS
 
@@ -190,9 +122,6 @@ function divide(firstNumber, secondNumber) {
     decimal.classList.add('disabled');
     decimal.disabled = true;
 
-    // return error; // <- dodane polecenie return
-
-
   } else {
     return firstNumber / secondNumber;
   }
@@ -222,39 +151,36 @@ let result;
 const equals = document.querySelector('.equals');
 
 equals.addEventListener('click', () => {
-  secondNumber = selectedNumber;
-
-  if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
-    equalsNow();
-  }
+  equalsNow();
 });
 
 function equalsNow() {
-  if (primaryValue == error) {
-    clearAll();
-  } else if (
-    (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
-  ) {
-    firstNumber = Number(firstNumber);
-    //  selectedOperator = selectedOperator;
 
-    secondNumber = Number(selectedNumber);
-    result = operate(firstNumber, selectedOperator, secondNumber);
-    result = result.toPrecision(11).replace(/0+$/, '').replace(/\.$/, '');
-    primaryValue = result;
-    secondaryDisplay.textContent = `${firstNumber + ' ' + selectedOperator + ' ' + secondNumber + ' ' + '=' }`;
-    primaryDisplay.textContent = primaryValue;
-    primaryValue = primaryDisplay.textContent;
-    resizeFont();
-    firstNumber = result;
+  secondNumber = selectedNumber;
 
-    selectedNumber = '';
+  if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
 
+    if (primaryValue == error) {
+      clearAll();
+    } else if (
+      (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
+    ) {
+      firstNumber = Number(firstNumber);
+      secondNumber = Number(selectedNumber);
+      result = operate(firstNumber, selectedOperator, secondNumber);
+      result = result.toPrecision(11).replace(/0+$/, '').replace(/\.$/, '');
+      primaryValue = result;
+      secondaryDisplay.textContent = `${firstNumber + ' ' + selectedOperator + ' ' + secondNumber + ' ' + '=' }`;
+      primaryDisplay.textContent = primaryValue;
+      primaryValue = primaryDisplay.textContent;
+      firstNumber = result;
+      selectedNumber = '';
 
-    if (primaryValue.includes('.')) {
-      decimal.disabled = true;
-    } else {
-      decimal.disabled = false;
+      if (primaryValue.includes('.')) {
+        decimal.disabled = true;
+      } else {
+        decimal.disabled = false;
+      }
     }
 
   }
@@ -276,7 +202,7 @@ function clearAll() {
   selectedNumber = '';
   primaryValue = 0;
   secondaryValue = '';
-  // clickCounter = 0;
+
   result = '';
   secondaryDisplay.style.fontSize = '24px';
   primaryDisplay.style.fontSize = '48px';
@@ -299,14 +225,17 @@ function clearAll() {
 const backspace = document.querySelector('.backspace');
 
 backspace.addEventListener('click', () => {
+  backspaceNow();
+});
+
+function backspaceNow() {
   primaryValue = primaryValue.toString();
   primaryValue = primaryValue.slice(0, -1);
   if (primaryValue.length < 1) {
     primaryValue = 0;
   }
   primaryDisplay.textContent = primaryValue;
-  resizeFont();
-});
+};
 
 // BUTTON PRESS ANIMATION
 
@@ -318,28 +247,6 @@ buttons.forEach((button) => {
     button.offsetHeight;
     button.style.animation = 'press 0.2s';
     button.classList.add('hold');
-
-
-
-
-
-
-    // console.clear();
-    // console.log(
-    //   "firstNumber: " + firstNumber,
-    //   "\n",
-    //   "selectedOperator: " + selectedOperator,
-    //   "\n",
-    //   "secondNumber: " + secondNumber,
-    //   "\n",
-    //   "selectedNumber: " + selectedNumber,
-    //   "\n",
-    //   "primaryValue: " + primaryValue,
-    //   "\n",
-    //   "result: " + result
-    // );
-
-
   });
 
   button.addEventListener('mouseup', () => {
@@ -390,4 +297,75 @@ function resizeFont() {
   if (primaryDisplay.textContent.length >= 16) {
     primaryDisplay.style.fontSize = '36px';
   }
-}
+};
+
+// PREVENT DEFAULT
+
+// buttons.forEach((button) => {
+//   button.addEventListener("click", function(event){
+//     event.preventDefault();
+//   });
+// });
+
+
+// KEYBOARD SUPPORT
+
+document.addEventListener('keydown', (e) => {
+  if ((e.key >= '0') && (e.key <= '9') || (e.key === '.')) {
+    numberInput(e);
+  }
+
+  if (e.key == '+' || e.key == '-') {
+    selectedOperator = e.key;
+
+    primaryValue = primaryDisplay.textContent;
+    firstNumber = primaryValue;
+    secondaryDisplay.textContent = firstNumber + selectedOperator;
+    selectedNumber = '';
+
+    if (selectedOperator) {
+      primaryValue = '';
+    }
+  }
+
+  if (e.key == '*') {
+    selectedOperator = 'x';
+
+    primaryValue = primaryDisplay.textContent;
+    firstNumber = primaryValue;
+    secondaryDisplay.textContent = firstNumber + selectedOperator;
+    selectedNumber = '';
+
+    if (selectedOperator) {
+      primaryValue = '';
+    }
+  }
+
+  if (e.key == '/') {
+    selectedOperator = '÷';
+
+    primaryValue = primaryDisplay.textContent;
+    firstNumber = primaryValue;
+    secondaryDisplay.textContent = firstNumber + selectedOperator;
+    selectedNumber = '';
+
+    if (selectedOperator) {
+      primaryValue = '';
+    }
+  }
+
+
+  if (e.key == '=' || e.key == 'Enter') {
+    equalsNow();
+  };
+
+  if (e.key == 'Backspace') {
+    backspaceNow();
+  };
+
+  if (e.key === 'Escape') {
+    clearAll();
+  };
+
+  resizeFont();
+});
