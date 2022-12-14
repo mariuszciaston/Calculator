@@ -66,8 +66,8 @@ document.addEventListener('keydown', (e) => {
       primaryValue = '';
     }
   }
-  
- 
+
+
   if (e.key == '=' || e.key == 'Enter') {
     secondNumber = selectedNumber;
     if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
@@ -76,8 +76,8 @@ document.addEventListener('keydown', (e) => {
   };
 
 
-     
-  
+
+
 
 
   // if (e.key === '.') appendPoint()
@@ -100,14 +100,22 @@ numbers.forEach((number) => {
       selectedDigit = e.target.textContent;
       selectedNumber += selectedDigit;
 
-      if ((primaryValue == '0') && (selectedDigit != '.')) {
-
+       if ((primaryValue == '0') && (selectedDigit != '.')) {
         primaryValue = selectedDigit;
-      } else {
+      }
+      else  {
         primaryValue += selectedDigit;
       }
+      
+      if ((primaryValue == '.') ) {
+      primaryValue = 0 + selectedDigit;
+    }
+    
+
+
       primaryDisplay.textContent = primaryValue;
     }
+
 
     if (primaryValue.includes('.')) {
       decimal.disabled = true;
@@ -117,7 +125,7 @@ numbers.forEach((number) => {
 
 
 
-    
+
   });
 });
 
@@ -242,7 +250,7 @@ function equalsNow() {
 
     selectedNumber = '';
 
-    
+
     if (primaryValue.includes('.')) {
       decimal.disabled = true;
     } else {
