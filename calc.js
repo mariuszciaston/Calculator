@@ -67,11 +67,17 @@ document.addEventListener('keydown', (e) => {
     }
   }
   
-  // if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
+ 
   if (e.key == '=' || e.key == 'Enter') {
+    secondNumber = selectedNumber;
+    if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
       equalsNow();
-    // }
+    }
   };
+
+
+     
+  
 
 
   // if (e.key === '.') appendPoint()
@@ -108,6 +114,10 @@ numbers.forEach((number) => {
     } else {
       decimal.disabled = false;
     }
+
+
+
+    
   });
 });
 
@@ -231,6 +241,13 @@ function equalsNow() {
     firstNumber = result;
 
     selectedNumber = '';
+
+    
+    if (primaryValue.includes('.')) {
+      decimal.disabled = true;
+    } else {
+      decimal.disabled = false;
+    }
 
   }
 }
