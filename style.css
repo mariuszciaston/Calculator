@@ -65,7 +65,7 @@ body {
     flex-direction: inherit;
     justify-content: inherit;
     flex: 1;
-    min-height: 30px;
+    min-height: 28.666px;
     word-spacing: -6px;
 }
 
@@ -76,6 +76,8 @@ body {
     justify-content: inherit;
     flex: 1.5;
     overflow-wrap: break-word;
+    min-height: 57.333px;
+
 }
 
 .buttons-grid {
