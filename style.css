@@ -66,6 +66,7 @@ body {
     justify-content: inherit;
     flex: 1;
     min-height: 30px;
+    word-spacing: -6px;
 }
 
 .primary {

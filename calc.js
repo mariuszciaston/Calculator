@@ -150,7 +150,7 @@ operators.forEach((operator) => {
 
     primaryValue = primaryDisplay.textContent;
     firstNumber = primaryValue;
-    secondaryDisplay.textContent = firstNumber + selectedOperator;
+    secondaryDisplay.textContent = firstNumber + ' ' + selectedOperator;
     selectedNumber = '';
 
     if (selectedOperator) {
@@ -242,7 +242,7 @@ function equalsNow() {
     result = operate(firstNumber, selectedOperator, secondNumber);
     result = result.toPrecision(11).replace(/0+$/, '').replace(/\.$/, '');
     primaryValue = result;
-    secondaryDisplay.textContent = `${firstNumber + selectedOperator + secondNumber}=`;
+    secondaryDisplay.textContent = `${firstNumber + ' ' + selectedOperator + ' ' + secondNumber + ' ' + '=' }`;
     primaryDisplay.textContent = primaryValue;
     primaryValue = primaryDisplay.textContent;
     resizeFont();
