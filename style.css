@@ -65,7 +65,7 @@ body {
     flex-direction: inherit;
     justify-content: inherit;
     flex: 1;
-    min-height: 29.6px;
+    min-height: 30px;
 }
 
 .primary {
