@@ -1,3 +1,15 @@
+:root {
+    --background: hsl(0, 0%, 100%);
+    --font: black;
+    --border: black;
+    --display: white;
+    --calculator: hsl(0, 0%, 90%);
+    --btn: white;
+    --btn-red: hsl(0, 100%, 80%);
+    --btn-blue: hsl(220, 100%, 80%);
+    --btn-green: hsl(120, 100%, 80%);
+}
+
 html,
 body,
 .main {
@@ -21,8 +33,8 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    background-color: white;
-    color: black;
+    background-color: var(--background);
+    color: var(--font);
     margin: 0px;
     font-family: Inconsolata;
     font-size: 16px;
@@ -39,10 +51,10 @@ body {
     min-width: 280px;
     max-width: 360px;
     margin: 20px;
-    background-color: white;
     padding: 20px;
     box-sizing: border-box;
-    background-color: hsl(0, 0%, 90%);
+    background-color: var(--calculator);
+    ;
 }
 
 .display {
@@ -51,8 +63,7 @@ body {
     justify-content: center;
     padding: 10px;
     box-sizing: border-box;
-    background-color: white;
-    color: inherit;
+    background-color: var(--display);
     font-family: inherit;
     margin-bottom: 20px;
     min-height: 108px;
@@ -90,13 +101,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: var(--btn);
     color: inherit;
     font-family: inherit;
     font-size: 24px;
     overflow: hidden;
     min-height: 52px;
     aspect-ratio: 1/1;
+    outline: none;
 }
 
 .btn:hover {
@@ -130,12 +142,12 @@ body {
 .calc,
 .display,
 .btn {
-    border: solid black 1px;
+    border: solid var(--border) 1px;
     border-radius: 6px;
 }
 
 .clear {
-    background-color: hsl(0, 100%, 75%);
+    background-color: var(--btn-red);
     grid-column: 1/3;
     aspect-ratio: 0;
 }
@@ -145,11 +157,11 @@ body {
 }
 
 .operator {
-    background-color: hsl(220, 100%, 80%);
+    background-color: var(--btn-blue);
 }
 
 .equals {
-    background-color: hsl(120, 100%, 75%);
+    background-color: var(--btn-green);
     grid-column: -1/-3;
     aspect-ratio: 0;
 }
@@ -164,11 +176,11 @@ body {
     justify-content: center;
     font-size: 16px;
     padding: 10px 0;
-    color: black;
+    color: var(--font);
 }
 
 .fa-github {
-    color: black;
+    color: var(--font);
     opacity: 75%;
     transition: transform 0.3s ease-in-out;
 }
