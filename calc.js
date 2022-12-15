@@ -70,27 +70,36 @@ let secondNumber = '';
 const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
-
-
-    secondNumber = selectedNumber;
-
-
-    if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
-      equalsNow();
-    }
-    selectedOperator = e.target.textContent;
-
-    primaryValue = primaryDisplay.textContent;
-    firstNumber = primaryValue;
-    secondaryDisplay.textContent = firstNumber + ' ' + selectedOperator;
-    selectedNumber = '';
-
-    if (selectedOperator) {
-      primaryValue = '';
-    }
-
+    equalsNow();
+    operatorNow(e);  
   });
 });
+
+function operatorNow(e) {
+  if (e.type === 'click') {
+    selectedOperator = e.target.textContent;
+  }
+  if (e.type === 'keydown') {
+    selectedOperator = e.key;
+
+    if (e.key == '*'){
+      selectedOperator = 'x';
+    }
+    if (e.key == '/'){
+      selectedOperator = '÷';
+    }
+  }
+
+  primaryValue = primaryDisplay.textContent;
+  firstNumber = primaryValue;
+  secondaryDisplay.textContent = firstNumber + ' ' + selectedOperator;
+  selectedNumber = '';
+
+  if (selectedOperator) {
+    primaryValue = '';
+  }
+
+}
 
 // OPERATE
 
@@ -316,44 +325,16 @@ document.addEventListener('keydown', (e) => {
   }
 
   if (e.key == '+' || e.key == '-') {
-    selectedOperator = e.key;
-
-    primaryValue = primaryDisplay.textContent;
-    firstNumber = primaryValue;
-    secondaryDisplay.textContent = firstNumber + selectedOperator;
-    selectedNumber = '';
-
-    if (selectedOperator) {
-      primaryValue = '';
-    }
+    operatorNow(e);
   }
 
   if (e.key == '*') {
-    selectedOperator = 'x';
-
-    primaryValue = primaryDisplay.textContent;
-    firstNumber = primaryValue;
-    secondaryDisplay.textContent = firstNumber + selectedOperator;
-    selectedNumber = '';
-
-    if (selectedOperator) {
-      primaryValue = '';
-    }
+    operatorNow(e);
   }
 
   if (e.key == '/') {
-    selectedOperator = '÷';
-
-    primaryValue = primaryDisplay.textContent;
-    firstNumber = primaryValue;
-    secondaryDisplay.textContent = firstNumber + selectedOperator;
-    selectedNumber = '';
-
-    if (selectedOperator) {
-      primaryValue = '';
-    }
+    operatorNow(e);
   }
-
 
   if (e.key == '=' || e.key == 'Enter') {
     equalsNow();
