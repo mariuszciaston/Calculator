@@ -1,6 +1,7 @@
 // NUMBERS
 let selectedDigit = 0;
 let selectedNumber = '';
+
 const numbers = document.querySelectorAll('.num');
 
 let primaryValue = 0;
@@ -14,9 +15,6 @@ primaryDisplay.textContent = primaryValue;
 
 const error = 'cant divide by 0';
 const decimal = document.querySelector('.decimal');
-
-
-
 
 numbers.forEach((number) => {
   number.addEventListener('click', (e) => {
@@ -46,7 +44,24 @@ function numberInput(e) {
       primaryValue = 0 + selectedDigit;
     }
 
+
+
     primaryDisplay.textContent = primaryValue;
+
+
+    //
+    selectedNumber = primaryValue;
+
+    //     firstNumber = primaryValue;
+    // secondNumber = '';
+
+    // selectedNumber = '';
+
+
+    // selectedNumber = primaryValue;
+
+    // primaryDisplay.textContent = selectedNumber;
+    // secondaryDisplay.textContent = '';
   }
 
   if (primaryValue.includes('.')) {
@@ -71,30 +86,33 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
     equalsNow();
-    operatorNow(e);  
+    operatorNow(e);
   });
 });
 
 function operatorNow(e) {
+
   if (e.type === 'click') {
     selectedOperator = e.target.textContent;
   }
   if (e.type === 'keydown') {
     selectedOperator = e.key;
 
-    if (e.key == '*'){
+    if (e.key == '*') {
       selectedOperator = 'x';
     }
-    if (e.key == '/'){
+    if (e.key == '/') {
       selectedOperator = '÷';
     }
   }
-
   primaryValue = primaryDisplay.textContent;
+
+  //  primaryDisplay.textContent = '';
+  primaryValue = primaryValue.replace(/\.$|\.0+$/, '');
   firstNumber = primaryValue;
+  primaryDisplay.textContent = primaryValue;
   secondaryDisplay.textContent = firstNumber + ' ' + selectedOperator;
   selectedNumber = '';
-
   if (selectedOperator) {
     primaryValue = '';
   }
@@ -164,7 +182,6 @@ equals.addEventListener('click', () => {
 });
 
 function equalsNow() {
-
   secondNumber = selectedNumber;
 
   if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
@@ -251,6 +268,7 @@ function backspaceNow() {
 const buttons = document.querySelectorAll('.btn');
 
 buttons.forEach((button) => {
+
   button.addEventListener('mousedown', () => {
     button.style.animation = 'none';
     button.offsetHeight;
@@ -265,6 +283,25 @@ buttons.forEach((button) => {
     button.style.animation = 'unpress 0.2s';
   });
 });
+
+// document.addEventListener('keydown', () => {
+//   // e.preventDefault();
+
+//   button.style.animation = 'none';
+//   button.offsetHeight;
+//   button.style.animation = 'press 0.2s';
+//   button.classList.add('hold');
+// });
+
+// document.addEventListener('keyup', (e) => {
+
+
+//   button.classList.remove('hold');
+//   button.style.animation = 'none';
+//   button.offsetHeight;
+//   button.style.animation = 'unpress 0.2s';
+// });
+
 
 // CHANGE FONT SIZE TO FIT ON DISPLAY
 
@@ -308,43 +345,35 @@ function resizeFont() {
   }
 };
 
-// PREVENT DEFAULT
-
-// buttons.forEach((button) => {
-//   button.addEventListener("click", function(event){
-//     event.preventDefault();
-//   });
-// });
-
-
 // KEYBOARD SUPPORT
 
 document.addEventListener('keydown', (e) => {
+  e.preventDefault(); // fixes keyboard input
   if ((e.key >= '0') && (e.key <= '9') || (e.key === '.')) {
     numberInput(e);
   }
 
-  if (e.key == '+' || e.key == '-') {
+  if (e.key === '+' || e.key === '-') {
     operatorNow(e);
   }
 
-  if (e.key == '*') {
+  if (e.key === '*') {
     operatorNow(e);
   }
 
-  if (e.key == '/') {
+  if (e.key === '/') {
     operatorNow(e);
   }
 
-  if (e.key == '=' || e.key == 'Enter') {
+  if (e.key === '=' || e.key === 'Enter') {
     equalsNow();
   };
 
-  if (e.key == 'Backspace') {
+  if (e.key === 'Backspace') {
     backspaceNow();
   };
 
-  if (e.key === 'Escape') {
+  if (e.key === 'Escape' || e.key === 'c') {
     clearAll();
   };
 
