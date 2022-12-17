@@ -1,3 +1,5 @@
+display primary and secondary height. flicker bug
+rewrite resizeFont();  przenieść do css
 REFACTOR FUNCTIONS !
 
 DONE!

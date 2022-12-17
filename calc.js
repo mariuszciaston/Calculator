@@ -87,8 +87,12 @@ function numberInput(e) {
       selectedDigit = e.key;
     }
     selectedNumber += selectedDigit;
-    if ((primaryValue == '0') && (selectedDigit != '.')) {
-      primaryValue = selectedDigit;
+    if (((primaryValue === 0) && (selectedDigit !== '.')) || (primaryValue === 0)) {
+      if (selectedDigit === '.') {
+        primaryValue = selectedDigit;
+      } else {
+        primaryValue = Number(selectedDigit);
+      }
     } else if (String(primaryValue).includes('.')) {
       if (selectedDigit !== '.') {
         primaryValue += selectedDigit;
@@ -96,7 +100,7 @@ function numberInput(e) {
     } else {
       primaryValue += selectedDigit;
     }
-    if (primaryValue == '.') {
+    if (primaryValue === '.') {
       primaryValue = 0 + selectedDigit;
     }
     primaryDisplay.textContent = primaryValue;
@@ -118,10 +122,10 @@ function operatorNow(e) {
   }
   if (e.type === 'keydown') {
     selectedOperator = e.key;
-    if (e.key == '*' || e.key == 'x') {
+    if (e.key === '*' || e.key === 'x') {
       selectedOperator = 'x';
     }
-    if (e.key == '/') {
+    if (e.key === '/') {
       selectedOperator = '÷';
     }
   }
@@ -162,7 +166,7 @@ function operate() {
     case 'x':
       return multiply(firstNumber, secondNumber);
     case '÷':
-      if (secondNumber == 0) {
+      if (secondNumber === 0) {
         primaryValue = error;
         primaryDisplay.textContent = primaryValue;
 
@@ -188,8 +192,8 @@ function operate() {
 // EQUALS
 function equalsNow() {
   secondNumber = selectedNumber;
-  if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
-    if (primaryValue == error) {
+  if ((firstNumber !== '') && (selectedOperator !== '') && (secondNumber !== '')) {
+    if (primaryValue === error) {
       clearAll();
     } else {
       firstNumber = Number(firstNumber);
