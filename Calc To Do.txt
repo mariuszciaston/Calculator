@@ -1,6 +1,4 @@
--add all animations to css ?
--MAJOR CODE CLEAN UP
--REFACTORIZATION?
+REFACTOR FUNCTIONS !
 
 DONE!
 

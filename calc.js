@@ -7,7 +7,6 @@ let selectedOperator = '';
 let result = '';
 let secondaryValue = '';
 let primaryValue = 0;
-
 const error = 'cant divide by 0';
 
 // SELECTORS
@@ -55,6 +54,22 @@ document.addEventListener('keydown', (e) => {
   resizeFont();
 });
 
+// BUTTON PRESS ANIMATION
+buttons.forEach((button) => {
+  button.addEventListener('mousedown', () => {
+    button.classList.remove('unpress');
+    button.classList.add('press');
+    button.classList.add('hold');
+  });
+  button.addEventListener('mouseup', () => {
+    button.classList.remove('press');
+    button.classList.remove('hold');
+    button.classList.add('unpress');
+  });
+});
+
+// ---------------------------------------------------------------------------------
+
 // FUNCTIONS
 
 // NUMBERS
@@ -88,7 +103,7 @@ function numberInput(e) {
     primaryDisplay.textContent = primaryValue;
     //
     selectedNumber = primaryValue;
-    //     firstNumber = primaryValue;
+    // firstNumber = primaryValue;
     // secondNumber = '';
     // selectedNumber = '';
     // selectedNumber = primaryValue;
@@ -228,65 +243,19 @@ function clearAll() {
     operator.classList.remove('disabled');
     operator.disabled = false;
   });
-}
-
-// ----------------------------------------------------------------------------------
-
-
-// BUTTON PRESS ANIMATION
-buttons.forEach((button) => {
-
-  button.addEventListener('mousedown', () => {
-
-    button.style.animation = 'none';
-    button.offsetHeight;
-    button.style.animation = 'press 0.2s';
-
-    button.classList.add('hold');
-
-  });
-
-  button.addEventListener('mouseup', () => {
-
-    button.classList.remove('hold');
-
-    button.style.animation = 'none';
-    button.offsetHeight;
-    button.style.animation = 'unpress 0.2s';
-
-  });
-});
+};
 
 // CHANGE FONT SIZE TO FIT ON DISPLAY
 function resizeFont() {
-  if (secondaryDisplay.textContent.length <= 12) {
-    secondaryDisplay.style.fontSize = '24px';
-  }
-  if (secondaryDisplay.textContent.length >= 13) {
-    secondaryDisplay.style.fontSize = '22,5px';
-  }
-  if (secondaryDisplay.textContent.length >= 14) {
-    secondaryDisplay.style.fontSize = '21px';
-  }
-  if (secondaryDisplay.textContent.length >= 15) {
-    secondaryDisplay.style.fontSize = '19,5px';
-  }
-  if (secondaryDisplay.textContent.length >= 16) {
-    secondaryDisplay.style.fontSize = '18px';
-  }
-  if (primaryDisplay.textContent.length <= 12) {
-    primaryDisplay.style.fontSize = '48px';
-  }
-  if (primaryDisplay.textContent.length >= 13) {
-    primaryDisplay.style.fontSize = '45px';
-  }
-  if (primaryDisplay.textContent.length >= 14) {
-    primaryDisplay.style.fontSize = '42px';
-  }
-  if (primaryDisplay.textContent.length >= 15) {
-    primaryDisplay.style.fontSize = '39px';
-  }
-  if (primaryDisplay.textContent.length >= 16) {
-    primaryDisplay.style.fontSize = '36px';
-  }
+  if (secondaryDisplay.textContent.length <= 12) secondaryDisplay.style.fontSize = '24px';
+  if (secondaryDisplay.textContent.length >= 13) secondaryDisplay.style.fontSize = '22,5px';
+  if (secondaryDisplay.textContent.length >= 14) secondaryDisplay.style.fontSize = '21px';
+  if (secondaryDisplay.textContent.length >= 15) secondaryDisplay.style.fontSize = '19,5px';
+  if (secondaryDisplay.textContent.length >= 16) secondaryDisplay.style.fontSize = '18px';
+
+  if (primaryDisplay.textContent.length <= 12) primaryDisplay.style.fontSize = '48px';
+  if (primaryDisplay.textContent.length >= 13) primaryDisplay.style.fontSize = '45px';
+  if (primaryDisplay.textContent.length >= 14) primaryDisplay.style.fontSize = '42px';
+  if (primaryDisplay.textContent.length >= 15) primaryDisplay.style.fontSize = '39px';
+  if (primaryDisplay.textContent.length >= 16) primaryDisplay.style.fontSize = '36px';
 };

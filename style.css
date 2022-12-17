@@ -115,6 +115,18 @@ body {
     cursor: pointer;
 }
 
+.press {
+    animation: press 0.2s;
+}
+
+.hold {
+    transform: scale(0.95);
+}
+
+.unpress {
+    animation: unpress 0.2s;
+}
+
 @keyframes press {
     from {
         transform: scale(1);
@@ -123,10 +135,6 @@ body {
     to {
         transform: scale(0.95);
     }
-}
-
-.hold {
-    transform: scale(0.95);
 }
 
 @keyframes unpress {
