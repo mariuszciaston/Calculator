@@ -1,3 +1,5 @@
+// /* eslint-disable eqeqeq */
+/* eslint-disable no-use-before-define */
 // VALUES
 let selectedDigit = 0;
 let selectedNumber = '';
@@ -46,7 +48,7 @@ buttons.forEach((button) => {
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', (e) => {
   e.preventDefault(); // fixes keyboard input
-  if ((e.key >= '0') && (e.key <= '9') || (e.key === '.')) numberInput(e);
+  if (((e.key >= '0') && (e.key <= '9')) || (e.key === '.')) numberInput(e);
   if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') operatorNow(e);
   if (e.key === '=' || e.key === 'Enter') equalsNow();
   if (e.key === 'Backspace') backspaceNow();
@@ -74,11 +76,10 @@ buttons.forEach((button) => {
 
 // NUMBERS
 function numberInput(e) {
-
-  if (primaryValue == error) {
+  if (primaryValue === error) {
     clearAll();
   }
-  if (primaryValue.length == undefined || primaryValue.length < 16) {
+  if (primaryValue.length === undefined || primaryValue.length < 16) {
     if (e.type === 'click') {
       selectedDigit = e.target.textContent;
     }
@@ -88,14 +89,12 @@ function numberInput(e) {
     selectedNumber += selectedDigit;
     if ((primaryValue == '0') && (selectedDigit != '.')) {
       primaryValue = selectedDigit;
-    } else {
-      if (String(primaryValue).includes('.')) {
-        if (selectedDigit !== '.') {
-          primaryValue += selectedDigit;
-        }
-      } else {
+    } else if (String(primaryValue).includes('.')) {
+      if (selectedDigit !== '.') {
         primaryValue += selectedDigit;
       }
+    } else {
+      primaryValue += selectedDigit;
     }
     if (primaryValue == '.') {
       primaryValue = 0 + selectedDigit;
@@ -110,7 +109,7 @@ function numberInput(e) {
     // primaryDisplay.textContent = selectedNumber;
     // secondaryDisplay.textContent = '';
   }
-};
+}
 
 // OPERATORS
 function operatorNow(e) {
@@ -130,7 +129,7 @@ function operatorNow(e) {
   primaryValue = primaryValue.replace(/\.$|\.0+$/, '');
   firstNumber = primaryValue;
   primaryDisplay.textContent = primaryValue;
-  secondaryDisplay.textContent = firstNumber + ' ' + selectedOperator;
+  secondaryDisplay.textContent = `${firstNumber} ${selectedOperator}`;
   selectedNumber = '';
   if (selectedOperator) {
     primaryValue = '';
@@ -138,51 +137,51 @@ function operatorNow(e) {
 }
 
 // OPERATE
-function add(firstNumber, secondNumber) {
+function add() {
   return firstNumber + secondNumber;
 }
 
-function substract(firstNumber, secondNumber) {
+function substract() {
   return firstNumber - secondNumber;
 }
 
-function multiply(firstNumber, secondNumber) {
+function multiply() {
   return firstNumber * secondNumber;
 }
 
-function divide(firstNumber, secondNumber) {
-  if (secondNumber == 0) {
-    primaryValue = error;
-    primaryDisplay.textContent = primaryValue;
-
-    decimal.classList.add('disabled');
-    decimal.disabled = true;
-
-    backspace.classList.add('disabled');
-    backspace.disabled = true;
-
-    operators.forEach((operator) => {
-      operator.classList.add('disabled');
-      operator.disabled = true;
-    });
-
-  } else {
-    return firstNumber / secondNumber;
-  }
+function divide() {
+  return firstNumber / secondNumber;
 }
 
-function operate(firstNumber, selectedOperator, secondNumber) {
-  if (selectedOperator == '+') {
-    return add(firstNumber, secondNumber);
-  }
-  if (selectedOperator == '-') {
-    return substract(firstNumber, secondNumber);
-  }
-  if (selectedOperator == 'x') {
-    return multiply(firstNumber, secondNumber);
-  }
-  if (selectedOperator == '÷') {
-    return divide(firstNumber, secondNumber);
+function operate() {
+  switch (selectedOperator) {
+    case '+':
+      return add(firstNumber, secondNumber);
+    case '-':
+      return substract(firstNumber, secondNumber);
+    case 'x':
+      return multiply(firstNumber, secondNumber);
+    case '÷':
+      if (secondNumber == 0) {
+        primaryValue = error;
+        primaryDisplay.textContent = primaryValue;
+
+        decimal.classList.add('disabled');
+        decimal.disabled = true;
+
+        backspace.classList.add('disabled');
+        backspace.disabled = true;
+
+        operators.forEach((operator) => {
+          operator.classList.add('disabled');
+          const tempOperator = operator;
+          tempOperator.disabled = true;
+        });
+        return error;
+      }
+      return divide(firstNumber, secondNumber);
+    default:
+      return null;
   }
 }
 
@@ -192,15 +191,13 @@ function equalsNow() {
   if ((firstNumber != '') && (selectedOperator != '') && (secondNumber != '')) {
     if (primaryValue == error) {
       clearAll();
-    } else if (
-      (firstNumber != '') || (selectedOperator != '') || (secondNumber != '')
-    ) {
+    } else {
       firstNumber = Number(firstNumber);
       secondNumber = Number(selectedNumber);
       result = operate(firstNumber, selectedOperator, secondNumber);
+      secondaryDisplay.textContent = `${firstNumber} ${selectedOperator} ${secondNumber} ${'='}`;
       result = result.toPrecision(11).replace(/0+$/, '').replace(/\.$/, '');
       primaryValue = result;
-      secondaryDisplay.textContent = `${firstNumber + ' ' + selectedOperator + ' ' + secondNumber + ' ' + '=' }`;
       primaryDisplay.textContent = primaryValue;
       primaryValue = primaryDisplay.textContent;
       firstNumber = result;
@@ -217,7 +214,7 @@ function backspaceNow() {
     primaryValue = 0;
   }
   primaryDisplay.textContent = primaryValue;
-};
+}
 
 // CLEAR
 function clearAll() {
@@ -241,9 +238,10 @@ function clearAll() {
 
   operators.forEach((operator) => {
     operator.classList.remove('disabled');
-    operator.disabled = false;
+    const tempOperator = operator;
+    tempOperator.disabled = false;
   });
-};
+}
 
 // CHANGE FONT SIZE TO FIT ON DISPLAY
 function resizeFont() {
@@ -258,4 +256,4 @@ function resizeFont() {
   if (primaryDisplay.textContent.length >= 14) primaryDisplay.style.fontSize = '42px';
   if (primaryDisplay.textContent.length >= 15) primaryDisplay.style.fontSize = '39px';
   if (primaryDisplay.textContent.length >= 16) primaryDisplay.style.fontSize = '36px';
-};
+}
