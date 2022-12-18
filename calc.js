@@ -1,4 +1,3 @@
-// /* eslint-disable eqeqeq */
 /* eslint-disable no-use-before-define */
 // VALUES
 let selectedDigit = 0;
@@ -249,15 +248,15 @@ function clearAll() {
 
 // CHANGE FONT SIZE TO FIT ON DISPLAY
 function resizeFont() {
-  if (secondaryDisplay.textContent.length <= 12) secondaryDisplay.style.fontSize = '24px';
-  if (secondaryDisplay.textContent.length >= 13) secondaryDisplay.style.fontSize = '22,5px';
-  if (secondaryDisplay.textContent.length >= 14) secondaryDisplay.style.fontSize = '21px';
-  if (secondaryDisplay.textContent.length >= 15) secondaryDisplay.style.fontSize = '19,5px';
-  if (secondaryDisplay.textContent.length >= 16) secondaryDisplay.style.fontSize = '18px';
+  secondaryDisplay.classList[secondaryDisplay.textContent.length <= 12 ? 'add' : 'remove']('char-12-small');
+  secondaryDisplay.classList[secondaryDisplay.textContent.length === 13 ? 'add' : 'remove']('char-13-small');
+  secondaryDisplay.classList[secondaryDisplay.textContent.length === 14 ? 'add' : 'remove']('char-14-small');
+  secondaryDisplay.classList[secondaryDisplay.textContent.length === 15 ? 'add' : 'remove']('char-15-small');
+  secondaryDisplay.classList[secondaryDisplay.textContent.length >= 16 ? 'add' : 'remove']('char-16-small');
 
-  if (primaryDisplay.textContent.length <= 12) primaryDisplay.style.fontSize = '48px';
-  if (primaryDisplay.textContent.length >= 13) primaryDisplay.style.fontSize = '45px';
-  if (primaryDisplay.textContent.length >= 14) primaryDisplay.style.fontSize = '42px';
-  if (primaryDisplay.textContent.length >= 15) primaryDisplay.style.fontSize = '39px';
-  if (primaryDisplay.textContent.length >= 16) primaryDisplay.style.fontSize = '36px';
+  primaryDisplay.classList[primaryDisplay.textContent.length <= 12 ? 'add' : 'remove']('char-12-large');
+  primaryDisplay.classList[primaryDisplay.textContent.length === 13 ? 'add' : 'remove']('char-13-large');
+  primaryDisplay.classList[primaryDisplay.textContent.length === 14 ? 'add' : 'remove']('char-14-large');
+  primaryDisplay.classList[primaryDisplay.textContent.length === 15 ? 'add' : 'remove']('char-15-large');
+  primaryDisplay.classList[primaryDisplay.textContent.length >= 16 ? 'add' : 'remove']('char-16-large');
 }

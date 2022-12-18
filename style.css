@@ -8,6 +8,11 @@
     --btn-red: hsl(0, 100%, 80%);
     --btn-blue: hsl(220, 100%, 80%);
     --btn-green: hsl(120, 100%, 80%);
+    --char-12: 48px;
+    --char-13: 45px;
+    --char-14: 42px;
+    --char-15: 39px;
+    --char-16: 36px;
 }
 
 html,
@@ -71,7 +76,6 @@ body {
 }
 
 .secondary {
-    font-size: 24px;
     display: inherit;
     flex-direction: inherit;
     justify-content: inherit;
@@ -81,14 +85,52 @@ body {
 }
 
 .primary {
-    font-size: 48px;
     display: inherit;
     flex-direction: inherit;
     justify-content: inherit;
     flex: 1.5;
     overflow-wrap: break-word;
     min-height: 57.333333px;
+}
 
+.char-12-small {
+    font-size: calc(var(--char-12)/2);
+}
+
+.char-13-small {
+    font-size: calc(var(--char-13)/2);
+}
+
+.char-14-small {
+    font-size: calc(var(--char-14)/2);
+}
+
+.char-15-small {
+    font-size: calc(var(--char-15)/2);
+}
+
+.char-16-small {
+    font-size: calc(var(--char-16)/2);
+}
+
+.char-12-large {
+    font-size: var(--char-12);
+}
+
+.char-13-large {
+    font-size: var(--char-13);
+}
+
+.char-14-large {
+    font-size: var(--char-14);
+}
+
+.char-15-large {
+    font-size: var(--char-15);
+}
+
+.char-16-large {
+    font-size: var(--char-16);
 }
 
 .buttons-grid {

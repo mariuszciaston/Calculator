@@ -1,5 +1,11 @@
-rewrite resizeFont();  przenieść do css
+zablokować wiele zer po =
 REFACTOR FUNCTIONS !
+
+what about?
+10 x 10 = 9 x 2 = 2018!
+z kalwiatury działa
+z myszki = 
+
 
 DONE!
 
@@ -18,10 +24,6 @@ BLOCK:
 9 % %
 9 x x
 
-what about?
-10 x 10 = 9 x 2 = 2018!
-z kalwiatury działa
-z myszki = 
 
 
 
