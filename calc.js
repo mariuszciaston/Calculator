@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 // VALUES
 let selectedDigit = 0;
 let selectedNumber = '';
@@ -24,54 +23,36 @@ const primaryDisplay = document.querySelector('.primary');
 secondaryDisplay.textContent = secondaryValue;
 primaryDisplay.textContent = primaryValue;
 
-// EVENT LISTENERS
-numbers.forEach((number) => {
-  number.addEventListener('click', numberInput);
-});
-
-operators.forEach((operator) => {
-  operator.addEventListener('click', (e) => {
-    equalsNow();
-    operatorNow(e);
-  });
-});
-
-equals.addEventListener('click', equalsNow);
-backspace.addEventListener('click', backspaceNow);
-clear.addEventListener('click', clearAll);
-
-buttons.forEach((button) => {
-  button.addEventListener('click', resizeFont);
-});
-
-// KEYBOARD SUPPORT
-document.addEventListener('keydown', (e) => {
-  e.preventDefault(); // fixes keyboard input
-  if (((e.key >= '0') && (e.key <= '9')) || (e.key === '.')) numberInput(e);
-  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') operatorNow(e);
-  if (e.key === '=' || e.key === 'Enter') equalsNow();
-  if (e.key === 'Backspace') backspaceNow();
-  if (e.key === 'Escape' || e.key === 'c') clearAll();
-  resizeFont();
-});
-
-// BUTTON PRESS ANIMATION
-buttons.forEach((button) => {
-  button.addEventListener('mousedown', () => {
-    button.classList.remove('unpress');
-    button.classList.add('press');
-    button.classList.add('hold');
-  });
-  button.addEventListener('mouseup', () => {
-    button.classList.remove('press');
-    button.classList.remove('hold');
-    button.classList.add('unpress');
-  });
-});
-
 // ---------------------------------------------------------------------------------
 
 // FUNCTIONS
+
+// CLEAR
+function clearAll() {
+  selectedDigit = 0;
+  selectedNumber = '';
+  firstNumber = '';
+  secondNumber = '';
+  selectedOperator = '';
+  result = '';
+  secondaryValue = '';
+  primaryValue = 0;
+
+  secondaryDisplay.textContent = secondaryValue;
+  primaryDisplay.textContent = primaryValue;
+
+  decimal.classList.remove('disabled');
+  decimal.disabled = false;
+
+  backspace.classList.remove('disabled');
+  backspace.disabled = false;
+
+  operators.forEach((operator) => {
+    operator.classList.remove('disabled');
+    const tempOperator = operator;
+    tempOperator.disabled = false;
+  });
+}
 
 // NUMBERS
 function numberInput(e) {
@@ -219,33 +200,6 @@ function backspaceNow() {
   primaryDisplay.textContent = primaryValue;
 }
 
-// CLEAR
-function clearAll() {
-  selectedDigit = 0;
-  selectedNumber = '';
-  firstNumber = '';
-  secondNumber = '';
-  selectedOperator = '';
-  result = '';
-  secondaryValue = '';
-  primaryValue = 0;
-
-  secondaryDisplay.textContent = secondaryValue;
-  primaryDisplay.textContent = primaryValue;
-
-  decimal.classList.remove('disabled');
-  decimal.disabled = false;
-
-  backspace.classList.remove('disabled');
-  backspace.disabled = false;
-
-  operators.forEach((operator) => {
-    operator.classList.remove('disabled');
-    const tempOperator = operator;
-    tempOperator.disabled = false;
-  });
-}
-
 // CHANGE FONT SIZE TO FIT ON DISPLAY
 function resizeFont() {
   secondaryDisplay.classList[secondaryDisplay.textContent.length <= 12 ? 'add' : 'remove']('char-12-small');
@@ -260,3 +214,50 @@ function resizeFont() {
   primaryDisplay.classList[primaryDisplay.textContent.length === 15 ? 'add' : 'remove']('char-15-large');
   primaryDisplay.classList[primaryDisplay.textContent.length >= 16 ? 'add' : 'remove']('char-16-large');
 }
+
+// ---------------------------------------------------------------------------------
+
+// EVENT LISTENERS
+numbers.forEach((number) => {
+  number.addEventListener('click', numberInput);
+});
+
+operators.forEach((operator) => {
+  operator.addEventListener('click', (e) => {
+    equalsNow();
+    operatorNow(e);
+  });
+});
+
+equals.addEventListener('click', equalsNow);
+backspace.addEventListener('click', backspaceNow);
+clear.addEventListener('click', clearAll);
+
+buttons.forEach((button) => {
+  button.addEventListener('click', resizeFont);
+});
+
+// KEYBOARD SUPPORT
+document.addEventListener('keydown', (e) => {
+  e.preventDefault(); // fixes keyboard input
+  if (((e.key >= '0') && (e.key <= '9')) || (e.key === '.')) numberInput(e);
+  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') operatorNow(e);
+  if (e.key === '=' || e.key === 'Enter') equalsNow();
+  if (e.key === 'Backspace') backspaceNow();
+  if (e.key === 'Escape' || e.key === 'c') clearAll();
+  resizeFont();
+});
+
+// BUTTON PRESS ANIMATION
+buttons.forEach((button) => {
+  button.addEventListener('mousedown', () => {
+    button.classList.remove('unpress');
+    button.classList.add('press');
+    button.classList.add('hold');
+  });
+  button.addEventListener('mouseup', () => {
+    button.classList.remove('press');
+    button.classList.remove('hold');
+    button.classList.add('unpress');
+  });
+});
