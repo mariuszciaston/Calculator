@@ -237,29 +237,85 @@ buttons.forEach((button) => {
 
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', (e) => {
-  // e.preventDefault(); // fixes keyboard input
+  if ((e.key >= '0') && (e.key <= '9') || e.key === '.' || (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/' || e.key === 'Enter' || e.key === '=' || e.key === 'Backspace' || e.key === 'Escape' || e.key === 'c' || e.key === 'C')){ // won't block function keys and others in browser
+    e.preventDefault(); // fixes keyboard input bugs
+  }
+
   if (((e.key >= '0') && (e.key <= '9')) || (e.key === '.')) numberInput(e);
   if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') equalsNow(), operatorNow(e);
-  if (e.key === '=' || e.key === 'Enter') equalsNow();
-  if (e.key === 'Backspace') backspaceNow();
-  if (e.key === 'Escape' || e.key === 'c') clearAll();
+
+  if (e.key === 'Enter' || e.key === '=') {
+    equalsNow();
+    equals.classList.remove('unpress');
+    equals.classList.add('press', 'hold');
+  }
+
+  if (e.key === 'Backspace') {
+    backspaceNow();
+    backspace.classList.remove('unpress');
+    backspace.classList.add('press', 'hold');
+  }
+
+  if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') {
+    clearAll();
+    clear.classList.remove('unpress');
+    clear.classList.add('press', 'hold');
+  }
+
   resizeFont();
+
+  buttons.forEach((button) => {
+    let remapKey;
+    if (button.textContent === '÷') remapKey = '/';
+    if (button.textContent === 'x') remapKey = '*';
+
+    if (button.textContent === e.key || remapKey === e.key) {
+      button.classList.remove('unpress');
+      button.classList.add('press', 'hold');
+    }
+  });
+});
+
+document.addEventListener('keyup', (e) => {
+
+  buttons.forEach((button) => {
+    let remapKey;
+    if (button.textContent === '÷') remapKey = '/';
+    if (button.textContent === 'x') remapKey = '*';
+
+    if (button.textContent === e.key || remapKey === e.key) {
+      button.classList.remove('press', 'hold');
+      button.classList.add('unpress');
+    }
+
+    if (e.key === 'Enter' || e.key === '=') {
+      equals.classList.remove('press', 'hold');
+      equals.classList.add('unpress');
+    }
+
+    if (e.key === 'Backspace') {
+      backspace.classList.remove('press', 'hold');
+      backspace.classList.add('unpress');
+    }
+
+    if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') {
+      clear.classList.remove('press', 'hold');
+      clear.classList.add('unpress');
+    }
+  });
 });
 
 // BUTTON PRESS ANIMATION
 buttons.forEach((button) => {
   button.addEventListener('mousedown', () => {
     button.classList.remove('unpress');
-    button.classList.add('press');
-    button.classList.add('hold');
+    button.classList.add('press', 'hold');
   });
   button.addEventListener('mouseup', () => {
-    button.classList.remove('press');
-    button.classList.remove('hold');
+    button.classList.remove('press', 'hold');
     button.classList.add('unpress');
   });
 });
-
 
 // FOR DEBUGGING PURPOSES
 function debug() {
