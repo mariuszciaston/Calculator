@@ -21,15 +21,6 @@ body,
     height: 100%;
 }
 
-@media only screen and (max-height: 506px) {
-
-    html,
-    body,
-    .main {
-        height: auto;
-    }
-}
-
 html {
     position: relative;
     min-height: 100%;
@@ -89,7 +80,6 @@ body {
     flex-direction: inherit;
     justify-content: inherit;
     flex: 1.5;
-    overflow-wrap: break-word;
     min-height: 57.333333px;
 }
 
@@ -238,4 +228,23 @@ body {
 .fa-github:hover {
     opacity: 100%;
     transform: rotate(360deg) scale(1.2);
+}
+
+@media only screen and (max-height: 506px) {
+
+    html,
+    body,
+    .main {
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    :root {
+        --char-12: 36px;
+        --char-13: 33.75px;
+        --char-14: 31.5px;
+        --char-15: 29.25px;
+        --char-16: 27px;
+    }
 }
