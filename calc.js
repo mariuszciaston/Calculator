@@ -23,8 +23,6 @@ const primaryDisplay = document.querySelector('.primary');
 secondaryDisplay.textContent = secondaryValue;
 primaryDisplay.textContent = primaryValue;
 
-debug();
-
 // ---------------------------------------------------------------------------------
 
 // FUNCTIONS
@@ -87,16 +85,7 @@ function numberInput(e) {
       primaryValue = 0 + selectedDigit;
     }
     primaryDisplay.textContent = primaryValue;
-
-    //
     selectedNumber = primaryValue;
-    // firstNumber = primaryValue;
-    // secondNumber = '';
-    // selectedNumber = '';
-    // selectedNumber = primaryValue;
-    // primaryDisplay.textContent = selectedNumber;
-    // secondaryDisplay.textContent = '';
-
   }
 }
 
@@ -121,9 +110,9 @@ function operatorNow(e) {
   secondaryValue = `${firstNumber} ${selectedOperator}`;
   secondaryDisplay.textContent = secondaryValue;
   selectedNumber = '';
+
   if (selectedOperator) {
     primaryValue = '';
-
   }
 }
 
@@ -183,7 +172,6 @@ function equalsNow() {
     if (primaryValue === error) {
       clearAll();
     } else {
-      
       firstNumber = Number(firstNumber);
       secondNumber = Number(selectedNumber);
       result = operate(firstNumber, selectedOperator, secondNumber);
@@ -195,7 +183,7 @@ function equalsNow() {
       primaryValue = primaryDisplay.textContent;
       firstNumber = result;
       selectedNumber = '';
-
+      selectedOperator = '';
     }
   }
 }
@@ -208,7 +196,6 @@ function backspaceNow() {
     primaryValue = 0;
   }
   primaryDisplay.textContent = primaryValue;
-
 }
 
 // CHANGE FONT SIZE TO FIT ON DISPLAY
@@ -252,7 +239,7 @@ buttons.forEach((button) => {
 document.addEventListener('keydown', (e) => {
   // e.preventDefault(); // fixes keyboard input
   if (((e.key >= '0') && (e.key <= '9')) || (e.key === '.')) numberInput(e);
-  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') operatorNow(e);
+  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') equalsNow(), operatorNow(e);
   if (e.key === '=' || e.key === 'Enter') equalsNow();
   if (e.key === 'Backspace') backspaceNow();
   if (e.key === 'Escape' || e.key === 'c') clearAll();
@@ -274,9 +261,8 @@ buttons.forEach((button) => {
 });
 
 
-
-
-function debug(){
+// FOR DEBUGGING PURPOSES
+function debug() {
   console.clear();
   console.table([
     ['selectedDigit', selectedDigit],
@@ -285,11 +271,15 @@ function debug(){
     ['secondNumber', secondNumber],
     ['selectedOperator', selectedOperator],
     ['result', result],
-  ['secondaryValue', secondaryValue],
-  ['primaryValue', primaryValue]
-])
+    ['secondaryValue', secondaryValue],
+    ['primaryValue', primaryValue]
+  ])
 };
 
 document.addEventListener('click', () => {
-debug();
+  debug();
+});
+
+document.addEventListener('keydown', () => {
+  debug();
 });
