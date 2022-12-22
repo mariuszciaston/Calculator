@@ -23,8 +23,6 @@ const primaryDisplay = document.querySelector('.primary');
 secondaryDisplay.textContent = secondaryValue;
 primaryDisplay.textContent = primaryValue;
 
-// ---------------------------------------------------------------------------------
-
 // FUNCTIONS
 
 // CLEAR
@@ -52,7 +50,6 @@ function clearAll() {
     const tempOperator = operator;
     tempOperator.disabled = false;
   });
-
 }
 
 // NUMBERS
@@ -213,9 +210,7 @@ function resizeFont() {
   primaryDisplay.classList[primaryDisplay.textContent.length >= 16 ? 'add' : 'remove']('char-16-large');
 }
 
-// ---------------------------------------------------------------------------------
-
-// EVENT LISTENERS
+// MOUSE SUPPORT / EVENT LISTENERS
 numbers.forEach((number) => {
   number.addEventListener('click', numberInput);
 });
@@ -235,15 +230,19 @@ buttons.forEach((button) => {
   button.addEventListener('click', resizeFont);
 });
 
-// KEYBOARD SUPPORT
+// KEYBOARD SUPPORT / EVENT LISTENERS
 document.addEventListener('keydown', (e) => {
-  if ((e.key >= '0') && (e.key <= '9') || e.key === '.' || (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/' || e.key === 'Enter' || e.key === '=' || e.key === 'Backspace' || e.key === 'Escape' || e.key === 'c' || e.key === 'C')){ // won't block function keys and others in browser
+  if (((e.key >= '0') && (e.key <= '9')) || e.key === '.' || (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/' || e.key === 'Enter' || e.key === '=' || e.key === 'Backspace' || e.key === 'Escape' || e.key === 'c' || e.key === 'C')) { // won't block function keys and others in browser
     e.preventDefault(); // fixes keyboard input bugs
   }
 
   if (((e.key >= '0') && (e.key <= '9')) || (e.key === '.')) numberInput(e);
-  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') equalsNow(), operatorNow(e);
+  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') {
+    equalsNow();
+    operatorNow(e);
+  }
 
+  // BUTTON ANIMATION ON KEYDOWN
   if (e.key === 'Enter' || e.key === '=') {
     equalsNow();
     equals.classList.remove('unpress');
@@ -261,9 +260,6 @@ document.addEventListener('keydown', (e) => {
     clear.classList.remove('unpress');
     clear.classList.add('press', 'hold');
   }
-
-  resizeFont();
-
   buttons.forEach((button) => {
     let remapKey;
     if (button.textContent === '÷') remapKey = '/';
@@ -274,20 +270,12 @@ document.addEventListener('keydown', (e) => {
       button.classList.add('press', 'hold');
     }
   });
+  resizeFont();
 });
 
+// BUTTON ANIMATION ON KEYUP
 document.addEventListener('keyup', (e) => {
-
   buttons.forEach((button) => {
-    let remapKey;
-    if (button.textContent === '÷') remapKey = '/';
-    if (button.textContent === 'x') remapKey = '*';
-
-    if (button.textContent === e.key || remapKey === e.key) {
-      button.classList.remove('press', 'hold');
-      button.classList.add('unpress');
-    }
-
     if (e.key === 'Enter' || e.key === '=') {
       equals.classList.remove('press', 'hold');
       equals.classList.add('unpress');
@@ -302,10 +290,18 @@ document.addEventListener('keyup', (e) => {
       clear.classList.remove('press', 'hold');
       clear.classList.add('unpress');
     }
+    let remapKey;
+    if (button.textContent === '÷') remapKey = '/';
+    if (button.textContent === 'x') remapKey = '*';
+
+    if (button.textContent === e.key || remapKey === e.key) {
+      button.classList.remove('press', 'hold');
+      button.classList.add('unpress');
+    }
   });
 });
 
-// BUTTON PRESS ANIMATION
+// BUTTON ANIMATION ON MOUSEDOWN & MOUSEUP
 buttons.forEach((button) => {
   button.addEventListener('mousedown', () => {
     button.classList.remove('unpress');
@@ -318,24 +314,24 @@ buttons.forEach((button) => {
 });
 
 // FOR DEBUGGING PURPOSES
-function debug() {
-  console.clear();
-  console.table([
-    ['selectedDigit', selectedDigit],
-    ['selectedNumber', selectedNumber],
-    ['firstNumber', firstNumber],
-    ['secondNumber', secondNumber],
-    ['selectedOperator', selectedOperator],
-    ['result', result],
-    ['secondaryValue', secondaryValue],
-    ['primaryValue', primaryValue]
-  ])
-};
+// function debug() {
+//   console.clear();
+//   console.table([
+//     ['selectedDigit', selectedDigit],
+//     ['selectedNumber', selectedNumber],
+//     ['firstNumber', firstNumber],
+//     ['secondNumber', secondNumber],
+//     ['selectedOperator', selectedOperator],
+//     ['result', result],
+//     ['secondaryValue', secondaryValue],
+//     ['primaryValue', primaryValue],
+//   ]);
+// }
 
-document.addEventListener('click', () => {
-  debug();
-});
+// document.addEventListener('click', () => {
+//   debug();
+// });
 
-document.addEventListener('keydown', () => {
-  debug();
-});
+// document.addEventListener('keydown', () => {
+//   debug();
+// });
