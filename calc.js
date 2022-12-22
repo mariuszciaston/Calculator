@@ -23,6 +23,8 @@ const primaryDisplay = document.querySelector('.primary');
 secondaryDisplay.textContent = secondaryValue;
 primaryDisplay.textContent = primaryValue;
 
+debug();
+
 // ---------------------------------------------------------------------------------
 
 // FUNCTIONS
@@ -52,6 +54,7 @@ function clearAll() {
     const tempOperator = operator;
     tempOperator.disabled = false;
   });
+
 }
 
 // NUMBERS
@@ -84,6 +87,7 @@ function numberInput(e) {
       primaryValue = 0 + selectedDigit;
     }
     primaryDisplay.textContent = primaryValue;
+
     //
     selectedNumber = primaryValue;
     // firstNumber = primaryValue;
@@ -92,6 +96,7 @@ function numberInput(e) {
     // selectedNumber = primaryValue;
     // primaryDisplay.textContent = selectedNumber;
     // secondaryDisplay.textContent = '';
+
   }
 }
 
@@ -113,10 +118,12 @@ function operatorNow(e) {
   primaryValue = primaryValue.replace(/\.$|\.0+$/, '');
   firstNumber = primaryValue;
   primaryDisplay.textContent = primaryValue;
-  secondaryDisplay.textContent = `${firstNumber} ${selectedOperator}`;
+  secondaryValue = `${firstNumber} ${selectedOperator}`;
+  secondaryDisplay.textContent = secondaryValue;
   selectedNumber = '';
   if (selectedOperator) {
     primaryValue = '';
+
   }
 }
 
@@ -176,16 +183,19 @@ function equalsNow() {
     if (primaryValue === error) {
       clearAll();
     } else {
+      
       firstNumber = Number(firstNumber);
       secondNumber = Number(selectedNumber);
       result = operate(firstNumber, selectedOperator, secondNumber);
-      secondaryDisplay.textContent = `${firstNumber} ${selectedOperator} ${secondNumber} ${'='}`;
+      secondaryValue = `${firstNumber} ${selectedOperator} ${secondNumber} ${'='}`;
+      secondaryDisplay.textContent = secondaryValue;
       result = result.toPrecision(11).replace(/0+$/, '').replace(/\.$/, '');
       primaryValue = result;
       primaryDisplay.textContent = primaryValue;
       primaryValue = primaryDisplay.textContent;
       firstNumber = result;
       selectedNumber = '';
+
     }
   }
 }
@@ -198,6 +208,7 @@ function backspaceNow() {
     primaryValue = 0;
   }
   primaryDisplay.textContent = primaryValue;
+
 }
 
 // CHANGE FONT SIZE TO FIT ON DISPLAY
@@ -239,7 +250,7 @@ buttons.forEach((button) => {
 
 // KEYBOARD SUPPORT
 document.addEventListener('keydown', (e) => {
-  e.preventDefault(); // fixes keyboard input
+  // e.preventDefault(); // fixes keyboard input
   if (((e.key >= '0') && (e.key <= '9')) || (e.key === '.')) numberInput(e);
   if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === 'x' || e.key === '/') operatorNow(e);
   if (e.key === '=' || e.key === 'Enter') equalsNow();
@@ -260,4 +271,25 @@ buttons.forEach((button) => {
     button.classList.remove('hold');
     button.classList.add('unpress');
   });
+});
+
+
+
+
+function debug(){
+  console.clear();
+  console.table([
+    ['selectedDigit', selectedDigit],
+    ['selectedNumber', selectedNumber],
+    ['firstNumber', firstNumber],
+    ['secondNumber', secondNumber],
+    ['selectedOperator', selectedOperator],
+    ['result', result],
+  ['secondaryValue', secondaryValue],
+  ['primaryValue', primaryValue]
+])
+};
+
+document.addEventListener('click', () => {
+debug();
 });
