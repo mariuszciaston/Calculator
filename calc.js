@@ -94,7 +94,7 @@ function operatorNow(e) {
   if (e.type === 'keydown') {
     selectedOperator = e.key;
     if (e.key === '*' || e.key === 'x') {
-      selectedOperator = 'x';
+      selectedOperator = '×';
     }
     if (e.key === '/') {
       selectedOperator = '÷';
@@ -136,7 +136,7 @@ function operate() {
       return add(firstNumber, secondNumber);
     case '-':
       return substract(firstNumber, secondNumber);
-    case 'x':
+    case '×':
       return multiply(firstNumber, secondNumber);
     case '÷':
       if (secondNumber === 0) {
@@ -263,7 +263,7 @@ document.addEventListener('keydown', (e) => {
   buttons.forEach((button) => {
     let remapKey;
     if (button.textContent === '÷') remapKey = '/';
-    if (button.textContent === 'x') remapKey = '*';
+    if (button.textContent === '×') remapKey = '*';
 
     if (button.textContent === e.key || remapKey === e.key) {
       button.classList.remove('unpress');
@@ -292,7 +292,7 @@ document.addEventListener('keyup', (e) => {
     }
     let remapKey;
     if (button.textContent === '÷') remapKey = '/';
-    if (button.textContent === 'x') remapKey = '*';
+    if (button.textContent === '×') remapKey = '*';
 
     if (button.textContent === e.key || remapKey === e.key) {
       button.classList.remove('press', 'hold');

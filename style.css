@@ -34,6 +34,8 @@ body {
     margin: 0px;
     font-family: Inconsolata;
     font-size: 16px;
+    touch-action: manipulation; /* disable double-tap to zoom */
+
 }
 
 .main {
@@ -194,6 +196,7 @@ body {
 
 .backspace {
     font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .operator {
