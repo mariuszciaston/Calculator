@@ -72,7 +72,6 @@ body {
     display: inherit;
     flex-direction: inherit;
     justify-content: inherit;
-    flex: 1;
     min-height: 28.666666px;
     word-spacing: -6px;
 }
@@ -81,7 +80,6 @@ body {
     display: inherit;
     flex-direction: inherit;
     justify-content: inherit;
-    flex: 1.5;
     min-height: 57.333333px;
 }
 
