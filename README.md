@@ -9,4 +9,7 @@ Features:<br>
 • Keyboard input support<br>
 • Floating point numbers calculation<br>
 
-[Live Demo](https://mariuszciaston.github.io/Calculator/) :point_left:
+[Live Demo](https://mariuszciaston.github.io/Calculator/) :point_left: <br><br>
+
+![Calculator.png](Calculator.png)| 
+------------- | 
